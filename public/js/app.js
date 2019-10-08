@@ -2335,6 +2335,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../api.js */ "./resources/js/api.js");
 //
 //
 //
@@ -2424,39 +2425,62 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
- // import $axios from "../../api.js";
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "app",
   data: function data() {
     return {
+      postName: null,
+      postEmail: null,
+      postRole: null,
+      register: [],
       users: []
     };
   },
   mounted: function mounted() {
     console.log("Berhasil tampil");
+    this.created();
   },
-  //   created() {
-  //       this.$axios
-  //         .get("users")
-  //         .then(response => {
-  //           this.results = response.results;
-  //           console.log(response.results);
-  //         })
-  //         .catch(e => {
-  //           console.error(e);
-  //         });
-  //     },
-  created: function created() {
-    var _this = this;
+  methods: {
+    created: function created() {
+      var _this = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("https://plugin-apps-server.herokuapp.com/api/users").then(function (response) {
-      _this.users = response.data.results;
-    })["catch"](function (e) {
-      console.error(e);
-    });
-  },
-  methods: {}
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("https://plugin-apps-server.herokuapp.com/api/users").then(function (response) {
+        _this.users = response.data.results;
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    },
+    createPost: function createPost() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("https://plugin-apps-server.herokuapp.com/api/register", {
+        name: this.postName,
+        email: this.postEmail,
+        role: this.postRole
+      }).then(function (response) {
+        console.log(response);
+        _this2.register = response.status;
+
+        _this2.created();
+      })["catch"](function (e) {
+        console.error(e);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -5032,7 +5056,15 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(user.role))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(user.status))]),
+                    _c("td", [
+                      (user.status = "aktif")
+                        ? _c("span", { staticClass: "badge badge-success" }, [
+                            _vm._v("Aktif")
+                          ])
+                        : _c("span", { staticClass: "badge badge-danger" }, [
+                            _vm._v("Tidak Aktif")
+                          ])
+                    ]),
                     _vm._v(" "),
                     _c("td", [_vm._v("Detail")])
                   ])
@@ -5045,7 +5077,139 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm._m(2)
+    _c("div", { staticClass: "modal-demo", attrs: { id: "custom-modal" } }, [
+      _vm._m(2),
+      _vm._v(" "),
+      _c("h4", { staticClass: "custom-modal-title" }, [
+        _vm._v("Tambah Anggota")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-13" }, [
+        _c("div", { staticClass: "card-box" }, [
+          _c("form", { attrs: { role: "form" } }, [
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "name" } }, [_vm._v("Nama Lengkap")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.postName,
+                    expression: "postName"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "name",
+                  "aria-describedby": "namalengkap",
+                  placeholder: "Masukkan Nama Lengkap"
+                },
+                domProps: { value: _vm.postName },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.postName = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "email" } }, [_vm._v("Email")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.postEmail,
+                    expression: "postEmail"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "email",
+                  id: "email",
+                  placeholder: "Masukkan Email"
+                },
+                domProps: { value: _vm.postEmail },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.postEmail = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "role" } }, [_vm._v("Kedudukan")]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.postRole,
+                      expression: "postRole"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.postRole = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _c("option", [_vm._v("--- Pilih Kedudukan")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "admin" } }, [
+                    _vm._v("Administrator")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "bendahara" } }, [
+                    _vm._v("Bendahara")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "anggota" } }, [
+                    _vm._v("Anggota")
+                  ])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "btn btn-primary",
+              attrs: { type: "button", value: "Tambah Anggota Baru" },
+              on: {
+                click: function($event) {
+                  return _vm.createPost()
+                }
+              }
+            })
+          ])
+        ])
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -5094,86 +5258,15 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "div",
-      { staticClass: "modal-demo", attrs: { id: "custom-modal" } },
+      "button",
+      {
+        staticClass: "close",
+        attrs: { type: "button", onclick: "Custombox.modal.close();" }
+      },
       [
-        _c(
-          "button",
-          {
-            staticClass: "close",
-            attrs: { type: "button", onclick: "Custombox.modal.close();" }
-          },
-          [
-            _c("span", [_vm._v("×")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "sr-only" }, [_vm._v("Close")])
-          ]
-        ),
+        _c("span", [_vm._v("×")]),
         _vm._v(" "),
-        _c("h4", { staticClass: "custom-modal-title" }, [
-          _vm._v("Tambah Anggota")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-13" }, [
-          _c("div", { staticClass: "card-box" }, [
-            _c("form", { attrs: { role: "form" } }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "name" } }, [
-                  _vm._v("Nama Lengkap")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    id: "name",
-                    "aria-describedby": "namalengkap",
-                    placeholder: "Masukkan Nama Lengkap"
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "email" } }, [_vm._v("Email")]),
-                _vm._v(" "),
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "email",
-                    id: "email",
-                    placeholder: "Masukkan Email"
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "role" } }, [_vm._v("Kedudukan")]),
-                _vm._v(" "),
-                _c("select", { staticClass: "form-control" }, [
-                  _c("option", [_vm._v("--- Pilih Kedudukan")]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "admin" } }, [
-                    _vm._v("Administrator")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "bendahara" } }, [
-                    _vm._v("Bendahara")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "anggota" } }, [
-                    _vm._v("Amggota")
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "button",
-                { staticClass: "btn btn-primary ", attrs: { type: "submit" } },
-                [_vm._v("Tambah Anggota Baru")]
-              )
-            ])
-          ])
-        ])
+        _c("span", { staticClass: "sr-only" }, [_vm._v("Close")])
       ]
     )
   }
@@ -20272,6 +20365,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Master_vue_vue_type_template_id_4ff8fd00___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/api.js":
+/*!*****************************!*\
+  !*** ./resources/js/api.js ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+var $axios = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
+  baseURL: 'https://plugin-apps-server.herokuapp.com/api/',
+  headers: {
+    // Authorization: localStorage.getItem('token') != 'null' ? 'Bearer ' + JSON.stringify(localStorage.getItem('token')):'',
+    'Content-Type': 'application/json'
+  }
+});
+/* harmony default export */ __webpack_exports__["default"] = ($axios);
 
 /***/ }),
 
