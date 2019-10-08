@@ -18,6 +18,7 @@
     <link href="{{asset('template/libs/datatables/buttons.bootstrap4.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('template/libs/datatables/select.bootstrap4.css')}}" rel="stylesheet" type="text/css" />
 
+    <link href="{{asset('template/libs/custombox/custombox.min.css')}}" rel="stylesheet">
     <!-- App css -->
     <link href="{{asset('template/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('template/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
@@ -54,6 +55,9 @@
     <script src="{{asset('template/libs/pdfmake/vfs_fonts.js')}}"></script>
 
     <script src="{{asset('template/js/pages/datatables.init.js')}}"></script>
+
+    <script src="{{asset('template/libs/custombox/custombox.min.js')}}"></script>
+
 
 </body>
 
