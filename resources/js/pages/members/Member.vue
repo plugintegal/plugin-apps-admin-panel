@@ -35,7 +35,10 @@
                 <td>{{user.name}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.role}}</td>
-                <td>{{user.status}}</td>
+                <td>
+                  <span v-if="user.status = 'aktif'" class="badge badge-success">Aktif</span>
+                  <span v-else class="badge badge-danger">Tidak Aktif</span>
+                </td>
                 <td>Detail</td>
               </tr>
             </tbody>
@@ -50,16 +53,13 @@
         <span class="sr-only">Close</span>
       </button>
       <h4 class="custom-modal-title">Tambah Anggota</h4>
-      <!-- <div
-        class="custom-modal-text"
-      >Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
-      </div>-->
       <div class="col-md-13">
         <div class="card-box">
           <form role="form">
             <div class="form-group">
               <label for="name">Nama Lengkap</label>
               <input
+                v-model="postName"
                 type="text"
                 class="form-control"
                 id="name"
@@ -69,18 +69,30 @@
             </div>
             <div class="form-group">
               <label for="email">Email</label>
-              <input type="email" class="form-control" id="email" placeholder="Masukkan Email" />
+              <input
+                v-model="postEmail"
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="Masukkan Email"
+              />
             </div>
             <div class="form-group">
               <label for="role">Kedudukan</label>
-              <select class="form-control">
+              <select v-model="postRole" class="form-control">
                 <option>--- Pilih Kedudukan</option>
                 <option value="admin">Administrator</option>
                 <option value="bendahara">Bendahara</option>
-                <option value="anggota">Amggota</option>
+                <option value="anggota">Anggota</option>
               </select>
             </div>
-            <button type="submit" class="btn btn-primary ">Tambah Anggota Baru</button>
+            <!-- <button type="submit" class="btn btn-primary">Tambah Anggota Baru</button> -->
+            <input
+              class="btn btn-primary"
+              type="button"
+              @click="createPost()"
+              value="Tambah Anggota Baru"
+            />
           </form>
         </div>
       </div>
@@ -89,38 +101,49 @@
 </template>
 <script>
 import axios from "axios";
-// import $axios from "../../api.js";
+import $axios from "../../api.js";
 export default {
   name: "app",
   data() {
     return {
+      postName: null,
+      postEmail: null,
+      postRole: null,
+      register: [],
       users: []
     };
   },
   mounted() {
     console.log("Berhasil tampil");
+    this.created();
   },
-  //   created() {
-  //       this.$axios
-  //         .get("users")
-  //         .then(response => {
-  //           this.results = response.results;
-  //           console.log(response.results);
-  //         })
-  //         .catch(e => {
-  //           console.error(e);
-  //         });
-  //     },
-  created() {
-    axios
-      .get("https://plugin-apps-server.herokuapp.com/api/users")
-      .then(response => {
-        this.users = response.data.results;
-      })
-      .catch(e => {
-        console.error(e);
-      });
-  },
-  methods: {}
+  methods: {
+    created() {
+      axios
+        .get("https://plugin-apps-server.herokuapp.com/api/users")
+        .then(response => {
+          this.users = response.data.results;
+        })
+        .catch(e => {
+          console.error(e);
+        });
+    },
+    createPost() {
+      axios
+        .post("https://plugin-apps-server.herokuapp.com/api/register", {
+          name: this.postName,
+          email: this.postEmail,
+          role: this.postRole
+        })
+        .then(response => {
+          console.log(response);
+          this.register = response.status;
+          this.created();
+        })
+        .catch(e => {
+          console.error(e);
+        });
+    }
+  }
 };
 </script>
