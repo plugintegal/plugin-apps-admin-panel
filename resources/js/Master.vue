@@ -1,24 +1,28 @@
 <template>
   <div id="wrapper">
-    <app-navbar />
+    <app-navbar/>
 
-    <app-sidebar />
+    <app-sidebar/>
 
     <div class="content-page">
       <div class="content">
         <router-view></router-view>
-        <app-footer />
+        <app-footer/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import Navbar from "./components/NavbarComponent.vue";
 import Sidebar from "./components/SidebarComponent.vue";
 import Footer from "./components/FooterComponent.vue";
 export default {
+  computed:{
+    ...mapState(['api_token']),
+    ...mapGetters(['isAuth'])
+  },
   components: {
     "app-navbar": Navbar,
     "app-sidebar": Sidebar,
