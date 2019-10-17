@@ -11,9 +11,9 @@
             />
 
             <div class="profile-info-detail overflow-hidden">
-              <h4 class="m-0">Nama Anggota</h4>
+              <h4 class="m-0">{{user.name}}</h4>
               <p class="text-muted">
-                <i>Anggota</i>
+                <i>{{user.role}}</i>
               </p>
 
               <dl class="row">
@@ -68,3 +68,24 @@
     </div>
   </div>
 </template>
+
+<script>
+import axios from 'axios'
+export default {
+    data(){
+        return {
+            user: []
+        }
+    },
+    mounted(){
+        const url = `https://plugin-apps-server.herokuapp.com/api/user/${this.$route.params.member_id}`
+        axios.get(url).then(response => {
+            this.user = response.data.results
+        }).catch(error => {
+            if (error.response.status == 404) {
+                this.message = error.response.data.message
+            }
+        })
+    }
+}
+</script>

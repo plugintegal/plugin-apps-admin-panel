@@ -40,8 +40,8 @@ const router = new Router({
             component: Presences
         },
         {
-            path: '/detailmember',
-            name: 'detailmember',
+            path: '/members/:member_id',
+            name: 'detailMember',
             component: DetailMember
         }
     ]

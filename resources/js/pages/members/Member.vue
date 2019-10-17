@@ -41,7 +41,7 @@
                   <span v-if="user.status = 'aktif'" class="badge badge-success">Aktif</span>
                   <span v-else class="badge badge-danger">Tidak Aktif</span>
                 </td>
-                <td>Detail</td>
+                <td><router-link :to="{name: 'detailMember', params: {member_id: user.member_id}}">Detail</router-link></td>
               </tr>
             </tbody>
           </table>
