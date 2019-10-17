@@ -4,13 +4,15 @@
       <div class="col-12">
         <div class="card-box table-responsive">
           <h4 class="mt-0 header-title">Responsive example</h4>
+          <h4 v-bind="modalShow">{{modalShow}}</h4>
           <p class="text-muted font-14 mb-3">
             <a
-              href="#custom-modal"
+              href="#users"
               class="btn btn-primary btn-sm waves-effect"
               data-animation="fadein"
               data-plugin="custommodal"
               data-overlay-color="#36404a"
+              @click="showModal = true"
             >Tambah Aggota</a>
           </p>
 
@@ -46,8 +48,9 @@
         </div>
       </div>
     </div>
+
     <!-- Modal -->
-    <div id="custom-modal" class="modal-demo">
+    <div id="users" class="modal-demo" data-animation="fadein">
       <button type="button" class="close" onclick="Custombox.modal.close();">
         <span>&times;</span>
         <span class="sr-only">Close</span>
@@ -65,6 +68,7 @@
                 id="name"
                 aria-describedby="namalengkap"
                 placeholder="Masukkan Nama Lengkap"
+                autofocus
               />
             </div>
             <div class="form-group">
@@ -93,6 +97,7 @@
               @click="createPost()"
               value="Tambah Anggota Baru"
             />
+
           </form>
         </div>
       </div>
@@ -123,6 +128,7 @@ export default {
         .get("https://plugin-apps-server.herokuapp.com/api/users")
         .then(response => {
           this.users = response.data.results;
+          // this.modalShow = true;
         })
         .catch(e => {
           console.error(e);
@@ -136,9 +142,9 @@ export default {
           role: this.postRole
         })
         .then(response => {
-          console.log(response);
-          this.register = response.status;
-          this.created();
+            this.users = Custombox.modal.close()
+            Swal.fire('Anggota Berhasil Ditambah Lurd!')
+            this.created();
         })
         .catch(e => {
           console.error(e);
