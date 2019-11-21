@@ -7,6 +7,7 @@ import Presences from './pages/presences/Presence.vue'
 import DetailMember from './pages/members/DetailMember.vue'
 import Login from './pages/Login.vue'
 import store from './store.js'
+import AddEvent from './pages/event/AddEvent.vue'
 
 
 Vue.use(Router)
@@ -43,6 +44,11 @@ const router = new Router({
             path: '/members/:member_id',
             name: 'detailMember',
             component: DetailMember
+        },
+        {
+            path: '/event/add',
+            name: 'addevent',
+            component: AddEvent
         }
     ]
 })
