@@ -10,7 +10,7 @@ const store = new Vuex.Store({
         auth
     },
     state: {
-        token: localStorage.getItem('api_token'),
+        token: localStorage.getItem('token'),
         error: []
     },
     getters: {

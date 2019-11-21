@@ -9,14 +9,14 @@ const mutations = {
 }
 const actions = {
     submit({ commit }, payload) {
-        localStorage.setItem('api_token', null)
+        localStorage.setItem('token', null)
         commit('SET_TOKEN', null, { root: true })
 
         return new Promise((resolve, reject) => {
-            $axios.post('/login', payload).then((response) => {
+            $axios.post('/admin/login', payload).then((response) => {
                 if (response.status == 'success') {
-                    localStorage.setItem('api_token', response.results)
-                    commit('SET_TOKENS', response.results, { root: true })
+                    localStorage.setItem('token', response.status)
+                    commit('SET_TOKENS', response.status, { root: true })
                 } else {
                     commit('SET_ERRORS', { invalid: 'Member ID/Password Salah' }, { root: true })
                 }

@@ -1,13 +1,13 @@
 <template>
   <div id="wrapper">
-    <app-navbar/>
+    <app-navbar v-if="isAuth"/>
 
-    <app-sidebar/>
+    <app-sidebar v-if="isAuth"/>
 
     <div class="content-page">
       <div class="content">
-        <router-view></router-view>
-        <app-footer/>
+        <router-view v-if="isAuth"></router-view>
+        <app-footer v-if="isAuth"/>
       </div>
     </div>
   </div>
@@ -20,7 +20,7 @@ import Sidebar from "./components/SidebarComponent.vue";
 import Footer from "./components/FooterComponent.vue";
 export default {
   computed:{
-    ...mapState(['api_token']),
+    ...mapState(['token']),
     ...mapGetters(['isAuth'])
   },
   components: {

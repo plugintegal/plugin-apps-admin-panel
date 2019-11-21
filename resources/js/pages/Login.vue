@@ -6,7 +6,9 @@
           <div class="text-center">
             <a href="index.html">
               <span>
-                <img src="assets/images/logo-dark.png" alt height="22" />
+                <router-link :to="{ name: 'home' }">
+                  <img src="assets/images/logo-dark.png" alt height="22" />
+                </router-link>
               </span>
             </a>
             <p class="text-muted mt-2 mb-4">Responsive Admin Dashboard</p>
@@ -22,10 +24,12 @@
                   <label for="emailaddress">Email address</label>
                   <input
                     class="form-control"
-                    type="email"
-                    id="emailaddress"
+                    v-model="data.member_id"
+                    type="text"
+                    id="member_id"
+                    autofocus
                     required
-                    placeholder="Enter your email"
+                    placeholder="Masukkan ID Member"
                   />
                 </div>
 
@@ -33,6 +37,7 @@
                   <label for="password">Password</label>
                   <input
                     class="form-control"
+                    v-model="data.password"
                     type="password"
                     required
                     id="password"
@@ -53,24 +58,9 @@
                 </div>
 
                 <div class="form-group mb-0 text-center">
-                  <button class="btn btn-primary btn-block" type="submit">Log In</button>
+                  <button class="btn btn-primary btn-block" type="submit" @click.prevent="postLogin">Log In</button>
                 </div>
               </form>
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-12 text-center">
-              <p>
-                <a href="pages-recoverpw.html" class="text-muted ml-1">
-                  <i class="fa fa-lock mr-1"></i>Forgot your password?
-                </a>
-              </p>
-              <p class="text-muted">
-                Don't have an account?
-                <a href="pages-register.html" class="text-dark ml-1">
-                  <b>Sign Up</b>
-                </a>
-              </p>
             </div>
           </div>
         </div>
@@ -78,3 +68,44 @@
     </div>
   </div>
 </template>
+
+<script>
+import { mapActions, mapMutations, mapGetters, mapState } from "vuex";
+export default {
+  data() {
+    return {
+      data: {
+        member_id: "",
+        password: "",
+        status: []
+      }
+    };
+  },
+
+  created() {
+    if (this.isAuth) {
+      this.$router.push({ name: "home" });
+    }
+  },
+
+  computed: {
+    ...mapGetters(["isAuth"]),
+    ...mapState(["errors"])
+  },
+
+  methods: {
+    ...mapActions("auth", ["submit"]),
+    ...mapMutations(["CLEAR_ERRORS"]),
+
+    postLogin() {
+      this.submit(this.data).then(() => {
+        if (this.isAuth) {
+          this.CLEAR_ERRORS();
+
+          this.$router.push({ name: "home" });
+        }
+      });
+    }
+  }
+};
+</script>

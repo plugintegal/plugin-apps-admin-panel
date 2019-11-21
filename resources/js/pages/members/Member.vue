@@ -41,7 +41,11 @@
                   <span v-if="user.status = 'aktif'" class="badge badge-success">Aktif</span>
                   <span v-else class="badge badge-danger">Tidak Aktif</span>
                 </td>
-                <td><router-link :to="{name: 'detailMember', params: {member_id: user.member_id}}">Detail</router-link></td>
+                <td>
+                  <router-link
+                    :to="{name: 'detailMember', params: {member_id: user.member_id}}"
+                  >Detail</router-link>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -97,7 +101,6 @@
               @click="createPost()"
               value="Tambah Anggota Baru"
             />
-
           </form>
         </div>
       </div>
@@ -142,9 +145,9 @@ export default {
           role: this.postRole
         })
         .then(response => {
-            this.users = Custombox.modal.close()
-            Swal.fire('Anggota Berhasil Ditambah Lurd!')
-            this.created();
+          this.users = Custombox.modal.close();
+          Swal.fire("Anggota Berhasil Ditambah Lurd!");
+          this.created();
         })
         .catch(e => {
           console.error(e);
