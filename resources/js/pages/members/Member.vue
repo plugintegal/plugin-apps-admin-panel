@@ -109,7 +109,6 @@
 </template>
 <script>
 import axios from "axios";
-import $axios from "../../api.js";
 export default {
   name: "app",
   data() {

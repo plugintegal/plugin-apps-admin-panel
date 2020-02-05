@@ -37,7 +37,7 @@
 
           <div class="dropdown-divider"></div>
 
-          <a href="javascript:void(0);" class="dropdown-item notify-item">
+          <a href="javascript:void(0);" @click="logout" class="dropdown-item notify-item">
             <i class="fe-log-out"></i>
             <span>Logout</span>
           </a>
@@ -64,8 +64,28 @@
       </li>
 
       <li>
-        <h4 class="page-title-main">###</h4>
+        <h4 class="page-title-main">{{pageTitle}}</h4>
       </li>
     </ul>
   </div>
 </template>
+
+<script>
+import router from '../router'
+export default {
+    name: 'app',
+    data(){
+        return {
+            pageTitle: [],
+        }
+    },
+    methods: {
+        logout: function(){
+            this.$store.dispatch("logout")
+                .then(() => {
+                    this.$router.push("/")
+                })
+        }
+    }
+}
+</script>

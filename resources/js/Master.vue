@@ -1,32 +1,24 @@
 <template>
-  <div id="wrapper">
-    <app-navbar v-if="isAuth"/>
-
-    <app-sidebar v-if="isAuth"/>
-
-    <div class="content-page">
-      <div class="content">
-        <router-view v-if="isAuth"></router-view>
-        <app-footer v-if="isAuth"/>
-      </div>
-    </div>
-  </div>
+<div>
+    <layout v-if="isLoggedIn" />
+    <login v-else />
+</div>
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
-import Navbar from "./components/NavbarComponent.vue";
-import Sidebar from "./components/SidebarComponent.vue";
-import Footer from "./components/FooterComponent.vue";
+import Landing from './pages/Landing.vue'
+import Login from './pages/Login.vue'
+import Layout from './pages/Layout.vue'
 export default {
-  computed:{
-    ...mapState(['token']),
-    ...mapGetters(['isAuth'])
-  },
-  components: {
-    "app-navbar": Navbar,
-    "app-sidebar": Sidebar,
-    "app-footer": Footer
-  }
+computed:{
+    isLoggedIn: function(){
+        return this.$store.getters.isLoggedIn
+    }
+},
+components: {
+    "layout" : Layout,
+    "landing" : Landing,
+    "login" : Login,
+}
 };
 </script>

@@ -1,33 +1,67 @@
-import $axios from '../api.js'
+import axios from 'axios'
+import jwt_decode  from 'jwt-decode'
 
-const state = () => ({
-
-})
+const state = {
+    token: localStorage.getItem('token') || '',
+    currentUser: null,
+    isAdmin: false,
+  }
 
 const mutations = {
-
-}
-const actions = {
-    submit({ commit }, payload) {
-        localStorage.setItem('token', null)
-        commit('SET_TOKEN', null, { root: true })
-
-        return new Promise((resolve, reject) => {
-            $axios.post('/admin/login', payload).then((response) => {
-                if (response.status == 'success') {
-                    localStorage.setItem('token', response.status)
-                    commit('SET_TOKENS', response.status, { root: true })
-                } else {
-                    commit('SET_ERRORS', { invalid: 'Member ID/Password Salah' }, { root: true })
-                }
-                resolve(response.data)
-            }).catch((error) => {
-                if (error.response.status == 422) {
-                    commit('SET_ERRORS', error.response.errors, { root: true })
-                }
-            })
-        })
+    AUTH_SUCCESS (state, token){
+        state.token = token
+    },
+    LOGOUT (state){
+        state.token = '',
+        state.currentUser = null
+    },
+    GET_CURRENT_USER (state, user) {
+        state.currentUser = user
     }
+}
+
+const actions = {
+    login: ({ commit, dispatch }, user) => {
+        axios.post('https://plugin-apps-server.herokuapp.com/api/admin/login', user)
+          .then(res => {
+            console.log(res)
+            const token = res.data.results.api_token
+            const decoded = jwt_decode(token)
+            const userId = decoded.sub
+
+            localStorage.setItem('token', token)
+            axios.defaults.headers.common['Authorization'] = token
+
+            commit('AUTH_SUCCESS', token)
+            dispatch('getCurrentUser', token, userId)
+          })
+          .catch(err => {
+            console.log(err)
+            localStorage.removeItem('token')
+          })
+      },
+      logout: ({ commit }) => {
+        commit('LOGOUT')
+        localStorage.removeItem('token')
+      },
+      getCurrentUser: ({ commit }, token, userId) => {
+        axios.defaults.headers.common['Authorization'] = `bearer ${token}`
+
+        axios.get('/api/auth/user', userId)
+          .then(res => {
+            const user = res.data.data
+            console.log(user)
+            commit('GET_CURRENT_USER', user)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      }
+}
+
+const getters = {
+    isLoggedIn: state => !!state.token,
+    currentUser: state => state.currentUser
 }
 
 export default {
