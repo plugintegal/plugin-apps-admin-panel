@@ -13,6 +13,9 @@ export default {
 computed:{
     isLoggedIn: function(){
         return this.$store.getters.isLoggedIn
+    },
+    authStatus: function(){
+        return this.$store.getters.authStatus
     }
 },
 components: {

@@ -4,7 +4,7 @@
       <div class="col-12">
         <div class="card-box table-responsive">
           <h4 class="mt-0 header-title">Responsive example</h4>
-          <h4 v-bind="modalShow">{{modalShow}}</h4>
+          <!-- <h4 v-bind="modalShow">{{modalShow}}</h4> -->
           <p class="text-muted font-14 mb-3">
             <a
               href="#users"
@@ -94,7 +94,6 @@
                 <option value="anggota">Anggota</option>
               </select>
             </div>
-            <!-- <button type="submit" class="btn btn-primary">Tambah Anggota Baru</button> -->
             <input
               class="btn btn-primary"
               type="button"
@@ -109,8 +108,9 @@
 </template>
 <script>
 import axios from "axios";
+const token = localStorage.getItem("token");
 export default {
-  name: "app",
+  name: "Member",
   data() {
     return {
       postName: null,
@@ -127,10 +127,11 @@ export default {
   methods: {
     created() {
       axios
-        .get("https://plugin-apps-server.herokuapp.com/api/users")
+        .get("https://plugin-apps-server.herokuapp.com/api/users", {
+          headers: { Authorization: `Bearer ${token}` }
+        })
         .then(response => {
           this.users = response.data.results;
-          // this.modalShow = true;
         })
         .catch(e => {
           console.error(e);
@@ -139,13 +140,16 @@ export default {
     createPost() {
       axios
         .post("https://plugin-apps-server.herokuapp.com/api/register", {
+          headers: { Authorization: `Bearer ${token}` },
           name: this.postName,
           email: this.postEmail,
           role: this.postRole
         })
         .then(response => {
+
           this.users = Custombox.modal.close();
           Swal.fire("Anggota Berhasil Ditambah Lurd!");
+          console.log(users);
           this.created();
         })
         .catch(e => {

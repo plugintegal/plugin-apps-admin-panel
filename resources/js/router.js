@@ -9,6 +9,8 @@ import DetailMember from "./pages/members/DetailMember.vue";
 import Login from "./pages/Login.vue";
 import store from "./store/store.js";
 import AddEvent from "./pages/event/AddEvent.vue";
+import ParticipantEvent from "./pages/event/ParticipantEvent.vue";
+import CategoryEvent from './pages/event/CategoryEvent'
 
 Vue.use(Router);
 
@@ -61,6 +63,18 @@ const router = new Router({
             name: "addevent",
             title: "Tambah Event",
             component: AddEvent
+        },
+        {
+            path: "/event/cat",
+            name: "catEvent",
+            title: "Kategori Event",
+            component: CategoryEvent
+        },
+        {
+            path: "/event/participant",
+            name: "participant",
+            title: "Peserta Event",
+            component: ParticipantEvent
         }
     ]
 });

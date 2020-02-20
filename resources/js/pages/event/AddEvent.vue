@@ -3,228 +3,178 @@
     <div class="row">
       <div class="col-12">
         <div class="card-box">
-          <h4 class="m-t-0 header-title text-center">Add Event</h4>
-          
-
+          <h4 class="m-t-0 header-title">Tambah Acara Plugin</h4>
           <div class="row">
             <div class="col-12">
               <div class="p-2">
-                <form class="form-horizontal" role="form">
+                <div class="form-horizontal" role="form">
                   <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="simpleinput">Text</label>
+                    <label class="col-sm-2 col-form-label" for="simpleinput">Nama Acara</label>
                     <div class="col-sm-10">
-                      <input
-                        type="text"
-                        id="simpleinput"
-                        class="form-control"
-                        value="Some text value..."
-                      />
+                      <input type="text" class="form-control" v-model="title" />
                     </div>
                   </div>
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="example-email">Email</label>
-                    <div class="col-sm-10">
-                      <input
-                        type="email"
-                        id="example-email"
-                        name="example-email"
-                        class="form-control"
-                        placeholder="Email"
-                      />
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="example-password">Password</label>
-                    <div class="col-sm-10">
-                      <input
-                        type="password"
-                        id="example-password"
-                        class="form-control"
-                        value="password"
-                      />
-                    </div>
-                  </div>
-
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="example-placeholder">Placeholder</label>
-                    <div class="col-sm-10">
-                      <input
-                        type="text"
-                        id="example-placeholder"
-                        class="form-control"
-                        placeholder="placeholder"
-                      />
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="example-textarea">Text area</label>
-                    <div class="col-sm-10">
-                      <textarea class="form-control" rows="5" id="example-textarea"></textarea>
-                    </div>
-                  </div>
-
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Readonly</label>
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" readonly value="Readonly value" />
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Disabled</label>
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" disabled value="Disabled value" />
-                    </div>
-                  </div>
-
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="example-static">Static control</label>
-                    <div class="col-sm-10">
-                      <input
-                        type="text"
-                        readonly
-                        class="form-control-plaintext"
-                        id="example-static"
-                        value="email@example.com"
-                      />
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="example-helping">Helping text</label>
-                    <div class="col-sm-10">
-                      <input
-                        type="text"
-                        id="example-helping"
-                        class="form-control"
-                        placeholder="Helping text"
-                      />
-                      <span class="help-block">
-                        <small>A block of help text that breaks onto a new line and may extend beyond one line.</small>
-                      </span>
-                    </div>
-                  </div>
-
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Input Select</label>
-                    <div class="col-sm-10">
-                      <select class="form-control">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </select>
-                      <h6>Multiple select</h6>
-                      <select multiple class="form-control">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="form-group row">
-                    <label
-                      class="col-sm-2 col-form-label"
-                      for="example-fileinput"
-                    >Default file input</label>
-                    <div class="col-sm-10">
-                      <input type="file" class="form-control" id="example-fileinput" />
-                    </div>
-                  </div>
-
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="example-date">Date</label>
-                    <div class="col-sm-10">
-                      <input class="form-control" id="example-date" type="date" name="date" />
-                    </div>
-                  </div>
-
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="example-month">Month</label>
-                    <div class="col-md-10">
-                      <input class="form-control" id="example-month" type="month" name="month" />
-                    </div>
-                  </div>
-
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="example-time">Time</label>
-                    <div class="col-md-10">
-                      <input class="form-control" type="time" name="time" id="example-time" />
-                    </div>
-                  </div>
-
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="example-week">Week</label>
-                    <div class="col-md-10">
-                      <input class="form-control" type="week" name="week" id="example-week" />
-                    </div>
-                  </div>
-
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="example-number">Number</label>
-                    <div class="col-md-10">
-                      <input class="form-control" type="number" name="number" id="example-number" />
-                    </div>
-                  </div>
-
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">URL</label>
-                    <div class="col-md-10">
-                      <input class="form-control" type="url" name="url" />
-                    </div>
-                  </div>
-
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Search</label>
-                    <div class="col-md-10">
-                      <input class="form-control" type="search" name="search" />
-                    </div>
-                  </div>
-
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Tel</label>
-                    <div class="col-md-10">
-                      <input class="form-control" type="tel" name="tel" />
-                    </div>
-                  </div>
-
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label" for="example-color">Color</label>
-                    <div class="col-md-10">
-                      <input
-                        class="form-control"
-                        type="color"
-                        name="color"
-                        value="#71b6f9"
-                        id="example-color"
-                      />
-                    </div>
-                  </div>
-
-                  <div class="form-group row mb-0">
-                    <label class="col-sm-2 col-form-label" for="example-range">Range</label>
-                    <div class="col-md-10">
-                      <input
-                        class="custom-range"
-                        type="range"
-                        name="range"
-                        min="0"
-                        max="10"
-                        id="example-range"
-                      />
-                    </div>
-                  </div>
-                </form>
+                </div>
               </div>
             </div>
           </div>
-          <!-- end row -->
+          <button @click="addCategory()" class="btn btn-primary">Tambah Kategori</button>
         </div>
-        <!-- end card-box -->
+
+        <div class="row">
+          <div v-for="(cat, catIndex) in category" :key="cat.id">
+            <div class="col-xl-12">
+              <div class="card-box project-box">
+                <button
+                  @click="delCategory()"
+                  class="badge btn-icon waves-effect waves-light btn-danger float-right"
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+                <button
+                  @click="addCategory()"
+                  class="badge btn-icon waves-effect waves-light btn-primary float-right"
+                >
+                  <i class="fas fa-plus"></i>
+                </button>
+                <h4 class="mt-0 mb-3 header-title">Kategori Event</h4>
+                <div role="form">
+                  <div class="form-group">
+                    <label for="Kategori">Pilih Kategori</label>
+                    <select v-model="cat.category_id" class="form-control">
+                      <option disabled selected>-- Pilih Kategori --</option>
+                      <option
+                        v-for="getcat in categories"
+                        :key="getcat.id"
+                        v-bind:value="getcat.id"
+                      >{{ getcat.name }}</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="Harga">Harga</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      placeholder="Masukkan Harga"
+                      v-model="cat.price"
+                    />
+                  </div>
+                  <div class="progress progress-bar-alt-dark progress-sm">
+                    <div class="progress-bar bg-dark" role="progressbar"></div>
+                  </div>
+                  <br />
+                  <h1 class="mt-0 mb-3 header-title">Sub Kategori</h1>
+
+                  <div v-for="(sub, aIndex) in cat.sub_category" :key="sub.id">
+                    <div class="input-group">
+                      <input v-model="sub.sub_category_name" type="text" class="form-control" />
+                      <div class="input-group-append">
+                        <button
+                          type="button"
+                          class="btn btn-success"
+                          @click="addSubCategory(catIndex)"
+                        >
+                          <i class="mdi mdi-plus"></i>
+                        </button>
+                        <button
+                          v-show="aIndex !==0"
+                          type="button"
+                          class="btn btn-danger"
+                          @click="delSubCategory(catIndex)"
+                        >
+                          <i class="mdi mdi-minus"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <br />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <!-- end col -->
+      <button @click="postEvent()" class="btn btn-success">Simpan Acara</button>
     </div>
   </div>
 </template>
+
+<script>
+import axios from "axios";
+let token = localStorage.getItem("token");
+export default {
+  name: "AddEvent",
+  data() {
+    return {
+      categories: [],
+      title: "",
+      category: [
+        {
+          category_id: "",
+          price: "",
+          sub_category: [
+            {
+              sub_category_name: ""
+            }
+          ]
+        }
+      ],
+      event : {
+        //   title: this.title,
+        //   category: this.category
+      },
+    };
+  },
+  mounted() {
+    console.log("Add Event");
+    this.getCategory();
+    this.event
+  },
+  methods: {
+    addCategory() {
+      this.category.push({
+        category_id: "",
+        price: "",
+        sub_category: [
+          {
+            sub_category_name: ""
+          }
+        ]
+      });
+    },
+    delCategory() {
+      this.category.splice(1);
+    },
+    addSubCategory(catIndex) {
+      this.category[catIndex].sub_category.push({
+        sub_category_name: ""
+      });
+    },
+    delSubCategory(catIndex) {
+      this.category[catIndex].sub_category.splice(catIndex, 1);
+    },
+    postEvent() {
+      this.event = {
+          title: this.title,
+          category: this.category
+      }
+      console.log(this.event);
+    },
+
+    getCategory() {
+      axios
+        .get("https://plugin-apps-server.herokuapp.com/api/category", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then(response => {
+          this.categories = response.data.results;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
+  }
+};
+</script>
