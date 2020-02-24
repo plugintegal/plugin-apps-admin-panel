@@ -18,7 +18,8 @@
                     <label class="control-label col-sm-2">Awal Pendaftaran</label>
                     <div class="col-sm-10">
                       <div class="input-group">
-                          <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="datepicker-autoclose" v-model="opened">
+                          <!-- <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="datepicker-autoclose" v-model="opened"> -->
+                          <input type="date" v-model="opened" class="form-control">
                         <!-- <date-picker v-model="opened" lang="en" type="date" format="dd-MM-YYYY" class="form-control" aria-placeholder="dd-MM-YYY" ></date-picker> -->
                         <div class="input-group-append">
                           <span class="input-group-text">
@@ -32,7 +33,8 @@
                     <label class="control-label col-sm-2">Akhir Pendaftaran</label>
                     <div class="col-sm-10">
                       <div class="input-group">
-                        <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="datepicker-autoclose1" v-model="closed">
+                        <!-- <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="datepicker-autoclose1" v-model="closed"> -->
+                        <input type="date" v-model="closed" class="form-control">
                         <div class="input-group-append">
                           <span class="input-group-text">
                             <i class="fa fa-calendar"></i>
@@ -208,27 +210,14 @@ export default {
       this.category[catIndex].sub_category.splice(catIndex, 1);
     },
     onChange(e) {
-      var files = e.target.files || e.dataTransfer.files;
-      if (!files.length) return;
-      this.createImage(files[0]);
-      console.log(files);
-    },
-    createImage(file) {
-      var image = new Image();
-      var reader = new FileReader();
-      var vm = this;
-
-      reader.onload = e => {
-        vm.image = e.target.result;
-      };
-      reader.readAsDataURL(file);
+      this.image = e.target.files[0]
     },
     postEvent() {
       this.event = {
         title: this.title,
         opened: this.opened,
         closed: this.closed,
-        image: this.files,
+        image: this.image,
         description: this.description,
         category: this.category,
 

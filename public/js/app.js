@@ -2340,6 +2340,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 var token = localStorage.getItem("token");
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2388,28 +2390,14 @@ var token = localStorage.getItem("token");
       this.category[catIndex].sub_category.splice(catIndex, 1);
     },
     onChange: function onChange(e) {
-      var files = e.target.files || e.dataTransfer.files;
-      if (!files.length) return;
-      this.createImage(files[0]);
-      console.log(files);
-    },
-    createImage: function createImage(file) {
-      var image = new Image();
-      var reader = new FileReader();
-      var vm = this;
-
-      reader.onload = function (e) {
-        vm.image = e.target.result;
-      };
-
-      reader.readAsDataURL(file);
+      this.image = e.target.files[0];
     },
     postEvent: function postEvent() {
       this.event = {
         title: this.title,
         opened: this.opened,
         closed: this.closed,
-        image: this.files,
+        image: this.image,
         description: this.description,
         category: this.category
       };
@@ -8304,11 +8292,7 @@ var render = function() {
                               }
                             ],
                             staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "dd/mm/yyyy",
-                              id: "datepicker-autoclose"
-                            },
+                            attrs: { type: "date" },
                             domProps: { value: _vm.opened },
                             on: {
                               input: function($event) {
@@ -8342,11 +8326,7 @@ var render = function() {
                               }
                             ],
                             staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "dd/mm/yyyy",
-                              id: "datepicker-autoclose1"
-                            },
+                            attrs: { type: "date" },
                             domProps: { value: _vm.closed },
                             on: {
                               input: function($event) {
@@ -27356,8 +27336,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/hisyam/Music/plugin-apps-admin-panel/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/hisyam/Music/plugin-apps-admin-panel/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/felix/Documents/PLUGIN/plugin-apps-admin-panel/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/felix/Documents/PLUGIN/plugin-apps-admin-panel/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
