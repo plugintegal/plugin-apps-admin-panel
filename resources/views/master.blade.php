@@ -78,7 +78,7 @@
         <script src="{{asset('template/libs/bootstrap-timepicker/bootstrap-timepicker.min.js')}}"></script>
         <script src="{{asset('template/libs/bootstrap-colorpicker/bootstrap-colorpicker.min.js')}}"></script>
         <script src="{{asset('template/libs/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
-        <script src="{{asset('template/libs/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+        {{-- <script src="{{asset('template/libs/bootstrap-daterangepicker/daterangepicker.js')}}"></script> --}}
         <script src="{{asset('template/libs/bootstrap-maxlength/bootstrap-maxlength.min.js')}}"></script>
 
         <!-- Init js-->

@@ -2288,6 +2288,58 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var token = localStorage.getItem("token");
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2296,6 +2348,10 @@ var token = localStorage.getItem("token");
     return {
       categories: [],
       title: "",
+      image: "",
+      opened: "",
+      closed: "",
+      description: "",
       category: [{
         category_id: "",
         price: "",
@@ -2303,13 +2359,10 @@ var token = localStorage.getItem("token");
           sub_category_name: ""
         }]
       }],
-      event: {//   title: this.title,
-        //   category: this.category
-      }
+      event: {}
     };
   },
   mounted: function mounted() {
-    console.log("Add Event");
     this.getCategory();
     this.event;
   },
@@ -2334,9 +2387,30 @@ var token = localStorage.getItem("token");
     delSubCategory: function delSubCategory(catIndex) {
       this.category[catIndex].sub_category.splice(catIndex, 1);
     },
+    onChange: function onChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.createImage(files[0]);
+      console.log(files);
+    },
+    createImage: function createImage(file) {
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = function (e) {
+        vm.image = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    },
     postEvent: function postEvent() {
       this.event = {
         title: this.title,
+        opened: this.opened,
+        closed: this.closed,
+        image: this.files,
+        description: this.description,
         category: this.category
       };
       console.log(this.event);
@@ -8211,6 +8285,140 @@ var render = function() {
                           }
                         })
                       ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c("label", { staticClass: "control-label col-sm-2" }, [
+                        _vm._v("Awal Pendaftaran")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-10" }, [
+                        _c("div", { staticClass: "input-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.opened,
+                                expression: "opened"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              placeholder: "dd/mm/yyyy",
+                              id: "datepicker-autoclose"
+                            },
+                            domProps: { value: _vm.opened },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.opened = $event.target.value
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm._m(0)
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c("label", { staticClass: "control-label col-sm-2" }, [
+                        _vm._v("Akhir Pendaftaran")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-10" }, [
+                        _c("div", { staticClass: "input-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.closed,
+                                expression: "closed"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              placeholder: "dd/mm/yyyy",
+                              id: "datepicker-autoclose1"
+                            },
+                            domProps: { value: _vm.closed },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.closed = $event.target.value
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm._m(1)
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-sm-2 col-form-label",
+                          attrs: { for: "example-fileinput" }
+                        },
+                        [_vm._v("Pamflet Acara")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-10" }, [
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "file",
+                            id: "example-fileinput",
+                            accept: "image/*"
+                          },
+                          on: { change: _vm.onChange }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c("label", { staticClass: "control-label col-sm-2" }, [
+                        _vm._v("Deskripsi Grup")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-10" }, [
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.description,
+                              expression: "description"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            id: "textarea",
+                            maxlength: "225",
+                            rows: "3",
+                            placeholder: "Maksimal 255 Karakter ..."
+                          },
+                          domProps: { value: _vm.description },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.description = $event.target.value
+                            }
+                          }
+                        })
+                      ])
                     ])
                   ]
                 )
@@ -8365,7 +8573,7 @@ var render = function() {
                         })
                       ]),
                       _vm._v(" "),
-                      _vm._m(0, true),
+                      _vm._m(2, true),
                       _vm._v(" "),
                       _c("br"),
                       _vm._v(" "),
@@ -8471,6 +8679,26 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-append" }, [
+      _c("span", { staticClass: "input-group-text" }, [
+        _c("i", { staticClass: "fa fa-calendar" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-append" }, [
+      _c("span", { staticClass: "input-group-text" }, [
+        _c("i", { staticClass: "fa fa-calendar" })
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

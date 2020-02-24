@@ -14,6 +14,58 @@
                       <input type="text" class="form-control" v-model="title" />
                     </div>
                   </div>
+                  <div class="form-group row">
+                    <label class="control-label col-sm-2">Awal Pendaftaran</label>
+                    <div class="col-sm-10">
+                      <div class="input-group">
+                          <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="datepicker-autoclose" v-model="opened">
+                        <!-- <date-picker v-model="opened" lang="en" type="date" format="dd-MM-YYYY" class="form-control" aria-placeholder="dd-MM-YYY" ></date-picker> -->
+                        <div class="input-group-append">
+                          <span class="input-group-text">
+                            <i class="fa fa-calendar"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="control-label col-sm-2">Akhir Pendaftaran</label>
+                    <div class="col-sm-10">
+                      <div class="input-group">
+                        <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="datepicker-autoclose1" v-model="closed">
+                        <div class="input-group-append">
+                          <span class="input-group-text">
+                            <i class="fa fa-calendar"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="example-fileinput">Pamflet Acara</label>
+                    <div class="col-sm-10">
+                      <input
+                        type="file"
+                        class="form-control"
+                        id="example-fileinput"
+                        accept="image/*"
+                        @change="onChange"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="control-label col-sm-2">Deskripsi Grup</label>
+                    <div class="col-sm-10">
+                      <textarea
+                      v-model="description"
+                        id="textarea"
+                        class="form-control"
+                        maxlength="225"
+                        rows="3"
+                        placeholder="Maksimal 255 Karakter ..."
+                      ></textarea>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -108,6 +160,10 @@ export default {
     return {
       categories: [],
       title: "",
+      image: "",
+      opened: "",
+      closed: "",
+      description: "",
       category: [
         {
           category_id: "",
@@ -119,16 +175,14 @@ export default {
           ]
         }
       ],
-      event : {
-        //   title: this.title,
-        //   category: this.category
-      },
+      event: {
+
+      }
     };
   },
   mounted() {
-    console.log("Add Event");
     this.getCategory();
-    this.event
+    this.event;
   },
   methods: {
     addCategory() {
@@ -153,11 +207,32 @@ export default {
     delSubCategory(catIndex) {
       this.category[catIndex].sub_category.splice(catIndex, 1);
     },
+    onChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.createImage(files[0]);
+      console.log(files);
+    },
+    createImage(file) {
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = e => {
+        vm.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
     postEvent() {
       this.event = {
-          title: this.title,
-          category: this.category
-      }
+        title: this.title,
+        opened: this.opened,
+        closed: this.closed,
+        image: this.files,
+        description: this.description,
+        category: this.category,
+
+      };
       console.log(this.event);
     },
 
