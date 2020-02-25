@@ -2340,6 +2340,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var token = localStorage.getItem("token");
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2356,15 +2385,14 @@ var token = localStorage.getItem("token");
         category_id: "",
         price: "",
         sub_category: [{
-          sub_category_name: ""
+          sub_category_name: "",
+          quota: ""
         }]
-      }],
-      event: {}
+      }]
     };
   },
   mounted: function mounted() {
     this.getCategory();
-    this.event;
   },
   methods: {
     addCategory: function addCategory() {
@@ -2372,7 +2400,8 @@ var token = localStorage.getItem("token");
         category_id: "",
         price: "",
         sub_category: [{
-          sub_category_name: ""
+          sub_category_name: "",
+          quota: ""
         }]
       });
     },
@@ -2388,32 +2417,22 @@ var token = localStorage.getItem("token");
       this.category[catIndex].sub_category.splice(catIndex, 1);
     },
     onChange: function onChange(e) {
-      var files = e.target.files || e.dataTransfer.files;
-      if (!files.length) return;
-      this.createImage(files[0]);
-      console.log(files);
-    },
-    createImage: function createImage(file) {
-      var image = new Image();
-      var reader = new FileReader();
-      var vm = this;
-
-      reader.onload = function (e) {
-        vm.image = e.target.result;
-      };
-
-      reader.readAsDataURL(file);
+      this.image = e.target.files[0];
     },
     postEvent: function postEvent() {
-      this.event = {
-        title: this.title,
-        opened: this.opened,
-        closed: this.closed,
-        image: this.files,
-        description: this.description,
-        category: this.category
-      };
-      console.log(this.event);
+      var event = new FormData();
+      var categoriesData = JSON.stringify(this.category);
+      event.append("title", this.title), event.append("opened", this.opened), event.append("closed", this.closed), event.append("image", this.image), event.append("description", this.description), event.append("category", categoriesData);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("https://plugin-apps-server.herokuapp.com/api/event", event, {
+        headers: {
+          Authorization: "Bearer ".concat(token)
+        }
+      }) // .post("http://192.168.18.53:8000/api/event", event,{headers: { Authorization: `Bearer ${token}`}})
+      .then(function (response) {
+        console.log(response.data.results);
+      })["catch"](function (e) {
+        console.log(e);
+      });
     },
     getCategory: function getCategory() {
       var _this = this;
@@ -2530,12 +2549,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 
 var token = localStorage.getItem("token");
-var config = {
-  headers: {
-    "Content-Type": "application/x-www-form-urlencoded",
-    Authorization: "Bearer ".concat(token)
-  }
-};
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CategoryEvent",
   data: function data() {
@@ -2546,7 +2559,6 @@ var config = {
     };
   },
   mounted: function mounted() {
-    console.log("Berhasil");
     this.created();
   },
   methods: {
@@ -2569,32 +2581,36 @@ var config = {
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         var _this2 = this;
 
+        var data;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                //    console.log(token);
+                data = {
+                  name: this.postName
+                };
+                _context.next = 3;
                 return fetch("https://plugin-apps-server.herokuapp.com/api/category", {
                   method: "POST",
                   headers: {
                     Authorization: "Bearer ".concat(token),
                     "Content-Type": "application/json"
                   },
-                  body: JSON.stringify({
-                    name: this.postName
-                  })
+                  body: JSON.stringify(data)
                 }).then(function (response) {
-                  response.json();
+                  return response.json();
+                }).then(function (data) {
                   Swal.fire("Kategori Berhasil Ditambah Lurd!");
 
                   _this2.created();
-                }).then(function (data) {
-                  return console.log(data);
+
+                  console.log(data);
                 })["catch"](function (error) {
                   return console.log(error);
                 });
 
-              case 2:
+              case 3:
               case "end":
                 return _context.stop();
             }
@@ -8304,11 +8320,7 @@ var render = function() {
                               }
                             ],
                             staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "dd/mm/yyyy",
-                              id: "datepicker-autoclose"
-                            },
+                            attrs: { type: "date", placeholder: "dd/mm/yyyy" },
                             domProps: { value: _vm.opened },
                             on: {
                               input: function($event) {
@@ -8342,11 +8354,7 @@ var render = function() {
                               }
                             ],
                             staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "dd/mm/yyyy",
-                              id: "datepicker-autoclose1"
-                            },
+                            attrs: { type: "date", placeholder: "dd/mm/yyyy" },
                             domProps: { value: _vm.closed },
                             on: {
                               input: function($event) {
@@ -8594,7 +8602,10 @@ var render = function() {
                                 }
                               ],
                               staticClass: "form-control",
-                              attrs: { type: "text" },
+                              attrs: {
+                                type: "text",
+                                placeholder: "Nama Sub Kategori"
+                              },
                               domProps: { value: sub.sub_category_name },
                               on: {
                                 input: function($event) {
@@ -8606,6 +8617,28 @@ var render = function() {
                                     "sub_category_name",
                                     $event.target.value
                                   )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: sub.quota,
+                                  expression: "sub.quota"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text", placeholder: "Quota" },
+                              domProps: { value: sub.quota },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(sub, "quota", $event.target.value)
                                 }
                               }
                             }),
@@ -8633,7 +8666,7 @@ var render = function() {
                                       name: "show",
                                       rawName: "v-show",
                                       value: aIndex !== 0,
-                                      expression: "aIndex !==0"
+                                      expression: "aIndex !== 0"
                                     }
                                   ],
                                   staticClass: "btn btn-danger",
@@ -27306,6 +27339,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
           var token = resp.data.results.api_token;
           var user = resp.data.results;
           localStorage.setItem("token", token);
+          console.log(token);
           axios__WEBPACK_IMPORTED_MODULE_2___default.a.defaults.headers.common["Authorization"] = token;
           commit("auth_success", token, user);
           resolve(resp);

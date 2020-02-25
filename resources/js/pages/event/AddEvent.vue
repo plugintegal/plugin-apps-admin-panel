@@ -18,7 +18,12 @@
                     <label class="control-label col-sm-2">Awal Pendaftaran</label>
                     <div class="col-sm-10">
                       <div class="input-group">
-                          <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="datepicker-autoclose" v-model="opened">
+                        <input
+                          type="date"
+                          class="form-control"
+                          placeholder="dd/mm/yyyy"
+                          v-model="opened"
+                        />
                         <!-- <date-picker v-model="opened" lang="en" type="date" format="dd-MM-YYYY" class="form-control" aria-placeholder="dd-MM-YYY" ></date-picker> -->
                         <div class="input-group-append">
                           <span class="input-group-text">
@@ -32,7 +37,12 @@
                     <label class="control-label col-sm-2">Akhir Pendaftaran</label>
                     <div class="col-sm-10">
                       <div class="input-group">
-                        <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="datepicker-autoclose1" v-model="closed">
+                        <input
+                          type="date"
+                          class="form-control"
+                          placeholder="dd/mm/yyyy"
+                          v-model="closed"
+                        />
                         <div class="input-group-append">
                           <span class="input-group-text">
                             <i class="fa fa-calendar"></i>
@@ -57,7 +67,7 @@
                     <label class="control-label col-sm-2">Deskripsi Grup</label>
                     <div class="col-sm-10">
                       <textarea
-                      v-model="description"
+                        v-model="description"
                         id="textarea"
                         class="form-control"
                         maxlength="225"
@@ -117,22 +127,41 @@
                   <br />
                   <h1 class="mt-0 mb-3 header-title">Sub Kategori</h1>
 
-                  <div v-for="(sub, aIndex) in cat.sub_category" :key="sub.id">
+                  <div
+                    v-for="(sub,
+                                        aIndex) in cat.sub_category"
+                    :key="sub.id"
+                  >
                     <div class="input-group">
-                      <input v-model="sub.sub_category_name" type="text" class="form-control" />
+                      <input
+                        v-model="sub.sub_category_name"
+                        type="text"
+                        class="form-control"
+                        placeholder="Nama Sub Kategori"
+                      />
+                      <input
+                        v-model="sub.quota"
+                        type="text"
+                        class="form-control"
+                        placeholder="Quota"
+                      />
                       <div class="input-group-append">
                         <button
                           type="button"
                           class="btn btn-success"
-                          @click="addSubCategory(catIndex)"
+                          @click="
+                                                        addSubCategory(catIndex)
+                                                    "
                         >
                           <i class="mdi mdi-plus"></i>
                         </button>
                         <button
-                          v-show="aIndex !==0"
+                          v-show="aIndex !== 0"
                           type="button"
                           class="btn btn-danger"
-                          @click="delSubCategory(catIndex)"
+                          @click="
+                                                        delSubCategory(catIndex)
+                                                    "
                         >
                           <i class="mdi mdi-minus"></i>
                         </button>
@@ -154,6 +183,7 @@
 <script>
 import axios from "axios";
 let token = localStorage.getItem("token");
+
 export default {
   name: "AddEvent",
   data() {
@@ -170,20 +200,19 @@ export default {
           price: "",
           sub_category: [
             {
-              sub_category_name: ""
+              sub_category_name: "",
+              quota: ""
             }
           ]
         }
-      ],
-      event: {
-
-      }
+      ]
     };
   },
+
   mounted() {
     this.getCategory();
-    this.event;
   },
+
   methods: {
     addCategory() {
       this.category.push({
@@ -191,11 +220,13 @@ export default {
         price: "",
         sub_category: [
           {
-            sub_category_name: ""
+            sub_category_name: "",
+            quota: ""
           }
         ]
       });
     },
+
     delCategory() {
       this.category.splice(1);
     },
@@ -208,32 +239,30 @@ export default {
       this.category[catIndex].sub_category.splice(catIndex, 1);
     },
     onChange(e) {
-      var files = e.target.files || e.dataTransfer.files;
-      if (!files.length) return;
-      this.createImage(files[0]);
-      console.log(files);
+      this.image = e.target.files[0];
     },
-    createImage(file) {
-      var image = new Image();
-      var reader = new FileReader();
-      var vm = this;
 
-      reader.onload = e => {
-        vm.image = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    },
     postEvent() {
-      this.event = {
-        title: this.title,
-        opened: this.opened,
-        closed: this.closed,
-        image: this.files,
-        description: this.description,
-        category: this.category,
+      let event = new FormData();
+      let categoriesData = JSON.stringify(this.category);
+      event.append("title", this.title),
+        event.append("opened", this.opened),
+        event.append("closed", this.closed),
+        event.append("image", this.image),
+        event.append("description", this.description),
+        event.append("category", categoriesData);
 
-      };
-      console.log(this.event);
+      axios
+        .post("https://plugin-apps-server.herokuapp.com/api/event", event, {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+        // .post("http://192.168.18.53:8000/api/event", event,{headers: { Authorization: `Bearer ${token}`}})
+        .then(response => {
+          console.log(response.data.results);
+        })
+        .catch(e => {
+          console.log(e);
+        });
     },
 
     getCategory() {

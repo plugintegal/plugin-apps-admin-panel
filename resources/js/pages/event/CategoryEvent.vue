@@ -77,12 +77,7 @@
 <script>
     import axios from "axios";
     let token = localStorage.getItem("token");
-    var config = {
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            Authorization: `Bearer ${token}`
-        }
-    };
+
     export default {
         name: "CategoryEvent",
         data() {
@@ -93,7 +88,6 @@
             };
         },
         mounted() {
-            console.log("Berhasil");
             this.created();
         },
         methods: {
@@ -113,6 +107,9 @@
                 },
 
                 async createCategory() {
+                //    console.log(token);
+
+                    const data = {name: this.postName}
                     await fetch(
                             "https://plugin-apps-server.herokuapp.com/api/category", {
                                 method: "POST",
@@ -120,17 +117,15 @@
                                     Authorization: `Bearer ${token}`,
                                     "Content-Type": "application/json"
                                 },
-                                body: JSON.stringify({
-                                    name: this.postName
-                                })
+                                body: JSON.stringify(data)
                             }
                         )
-                        .then(response => {
-                            response.json();
-                            Swal.fire("Kategori Berhasil Ditambah Lurd!");
+                        .then(response => response.json())
+                        .then(data => {
+                             Swal.fire("Kategori Berhasil Ditambah Lurd!");
                             this.created();
+                            console.log(data)
                         })
-                        .then(data => console.log(data))
                         .catch(error => console.log(error));
                 }
         }
