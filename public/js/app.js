@@ -2342,6 +2342,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+<<<<<<< HEAD
 //
 //
 //
@@ -2369,6 +2370,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+=======
+>>>>>>> f6e064af4756a23e6d985c5c14aac594cd1526e5
 
 var token = localStorage.getItem("token");
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2420,6 +2423,7 @@ var token = localStorage.getItem("token");
       this.image = e.target.files[0];
     },
     postEvent: function postEvent() {
+<<<<<<< HEAD
       var event = new FormData();
       var categoriesData = JSON.stringify(this.category);
       event.append("title", this.title), event.append("opened", this.opened), event.append("closed", this.closed), event.append("image", this.image), event.append("description", this.description), event.append("category", categoriesData);
@@ -2433,6 +2437,17 @@ var token = localStorage.getItem("token");
       })["catch"](function (e) {
         console.log(e);
       });
+=======
+      this.event = {
+        title: this.title,
+        opened: this.opened,
+        closed: this.closed,
+        image: this.image,
+        description: this.description,
+        category: this.category
+      };
+      console.log(this.event);
+>>>>>>> f6e064af4756a23e6d985c5c14aac594cd1526e5
     },
     getCategory: function getCategory() {
       var _this = this;
@@ -8320,7 +8335,11 @@ var render = function() {
                               }
                             ],
                             staticClass: "form-control",
+<<<<<<< HEAD
                             attrs: { type: "date", placeholder: "dd/mm/yyyy" },
+=======
+                            attrs: { type: "date" },
+>>>>>>> f6e064af4756a23e6d985c5c14aac594cd1526e5
                             domProps: { value: _vm.opened },
                             on: {
                               input: function($event) {
@@ -8354,7 +8373,11 @@ var render = function() {
                               }
                             ],
                             staticClass: "form-control",
+<<<<<<< HEAD
                             attrs: { type: "date", placeholder: "dd/mm/yyyy" },
+=======
+                            attrs: { type: "date" },
+>>>>>>> f6e064af4756a23e6d985c5c14aac594cd1526e5
                             domProps: { value: _vm.closed },
                             on: {
                               input: function($event) {
@@ -27390,8 +27413,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/hisyam/Music/plugin-apps-admin-panel/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/hisyam/Music/plugin-apps-admin-panel/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/felix/Documents/PLUGIN/plugin-apps-admin-panel/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/felix/Documents/PLUGIN/plugin-apps-admin-panel/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

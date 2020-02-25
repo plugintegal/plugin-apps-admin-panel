@@ -24,6 +24,9 @@
                           placeholder="dd/mm/yyyy"
                           v-model="opened"
                         />
+                          <!-- <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="datepicker-autoclose" v-model="opened"> -->
+                          <input type="date" v-model="opened" class="form-control">
+
                         <!-- <date-picker v-model="opened" lang="en" type="date" format="dd-MM-YYYY" class="form-control" aria-placeholder="dd-MM-YYY" ></date-picker> -->
                         <div class="input-group-append">
                           <span class="input-group-text">
@@ -43,6 +46,8 @@
                           placeholder="dd/mm/yyyy"
                           v-model="closed"
                         />
+                        <!-- <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="datepicker-autoclose1" v-model="closed"> -->
+                        <input type="date" v-model="closed" class="form-control">
                         <div class="input-group-append">
                           <span class="input-group-text">
                             <i class="fa fa-calendar"></i>
@@ -239,6 +244,7 @@ export default {
       this.category[catIndex].sub_category.splice(catIndex, 1);
     },
     onChange(e) {
+
       this.image = e.target.files[0];
     },
 
@@ -251,7 +257,17 @@ export default {
         event.append("image", this.image),
         event.append("description", this.description),
         event.append("category", categoriesData);
-
+      this.image = e.target.files[0]
+    },
+    postEvent() {
+      this.event = {
+        title: this.title,
+        opened: this.opened,
+        closed: this.closed,
+        image: this.image,
+        description: this.description,
+        category: this.category,
+      }
       axios
         .post("https://plugin-apps-server.herokuapp.com/api/event", event, {
           headers: { Authorization: `Bearer ${token}` }
