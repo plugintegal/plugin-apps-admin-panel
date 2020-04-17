@@ -7,97 +7,33 @@
           <table id="datatable" class="table table-bordered dt-responsive nowrap">
             <thead>
               <tr>
+                <th>No</th>
                 <th>Nama Event</th>
                 <th>Awal Pendaftaran</th>
                 <th>Akhir Pendaftaran</th>
-                <th>Deskripsi</th>
-                <th>Aksi</th>
+                <th align="center">Aksi</th>
               </tr>
             </thead>
 
             <tbody>
-              <tr>
-                <td>System Architect</td>
-                <td>Edinburgh</td>
-                <td>61</td>
-                <td>2011/04/25</td>
+              <tr v-for="(event, no) in events" :key="event.id" >
+                <td>{{ no+1 }}</td>
+                <td>{{ event.title }}</td>
+                <td>{{ event.opened }}</td>
+                <td>{{ event.closed }}</td>
                 <td>
-                  <a href="#" class="btn btn-icon waves-effect waves-light btn-success">
+                  <!-- <a href="#" class="btn btn-icon waves-effect waves-light btn-success">
                     <i class="fas fa-eye"></i>
-                  </a>
+                  </a> -->
+                  <router-link :to="{name: 'detailEvent', params: {id: event.id}}" >Detail</router-link>
                   <a href="#" class="btn btn-icon waves-effect waves-light btn-warning">
                     <i class="fas fa-edit"></i>
                   </a>
                   <a href="#" class="btn btn-icon waves-effect waves-light btn-danger">
                     <i class="fas fa-trash-alt"></i>
                   </a>
-                </td>
-              </tr>
-              <tr>
-                <td>Accountant</td>
-                <td>Tokyo</td>
-                <td>63</td>
-                <td>2011/07/25</td>
-                <td>
-                  <a href="#" class="btn btn-icon waves-effect waves-light btn-success">
-                    <i class="fas fa-eye"></i>
-                  </a>
-                  <a href="#" class="btn btn-icon waves-effect waves-light btn-warning">
-                    <i class="fas fa-edit"></i>
-                  </a>
-                  <a href="#" class="btn btn-icon waves-effect waves-light btn-danger">
-                    <i class="fas fa-trash-alt"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>Junior Technical Author</td>
-                <td>San Francisco</td>
-                <td>66</td>
-                <td>2009/01/12</td>
-                <td>
-                  <a href="#" class="btn btn-icon waves-effect waves-light btn-success">
-                    <i class="fas fa-eye"></i>
-                  </a>
-                  <a href="#" class="btn btn-icon waves-effect waves-light btn-warning">
-                    <i class="fas fa-edit"></i>
-                  </a>
-                  <a href="#" class="btn btn-icon waves-effect waves-light btn-danger">
-                    <i class="fas fa-trash-alt"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>Senior Javascript Developer</td>
-                <td>Edinburgh</td>
-                <td>22</td>
-                <td>2012/03/29</td>
-                <td>
-                  <a href="#" class="btn btn-icon waves-effect waves-light btn-success">
-                    <i class="fas fa-eye"></i>
-                  </a>
-                  <a href="#" class="btn btn-icon waves-effect waves-light btn-warning">
-                    <i class="fas fa-edit"></i>
-                  </a>
-                  <a href="#" class="btn btn-icon waves-effect waves-light btn-danger">
-                    <i class="fas fa-trash-alt"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>Accountant</td>
-                <td>Tokyo</td>
-                <td>33</td>
-                <td>2008/11/28</td>
-                <td>
-                  <a href="#" class="btn btn-icon waves-effect waves-light btn-success">
-                    <i class="fas fa-eye"></i>
-                  </a>
-                  <a href="#" class="btn btn-icon waves-effect waves-light btn-warning">
-                    <i class="fas fa-edit"></i>
-                  </a>
-                  <a href="#" class="btn btn-icon waves-effect waves-light btn-danger">
-                    <i class="fas fa-trash-alt"></i>
+                  <a href="/event/participant" class="btn btn-icon waves-effect waves-light btn-primary">
+                    <i class="fas fa-users"></i>
                   </a>
                 </td>
               </tr>
@@ -110,20 +46,34 @@
 </template>
 
 <script>
+import axios from "axios";
+let token = localStorage.getItem("token");
+
 export default {
   name: "Events",
   data() {
     return {
-      event: [{ category_events: [{ sub_category_events: [] }] }]
+      events: []
     };
   },
   mounted() {
-      console.log(this.test())
+    this.getEvent();
   },
   methods: {
-      test(){
-          hasil: this.event
-      }
+    getEvent() {
+      axios
+        .get("https://plugin-apps-server.herokuapp.com/api/event", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then(response => {
+          this.events = response.data.results;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
   }
 };
 </script>

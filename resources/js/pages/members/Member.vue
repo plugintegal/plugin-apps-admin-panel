@@ -4,7 +4,6 @@
       <div class="col-12">
         <div class="card-box table-responsive">
           <h4 class="mt-0 header-title">Responsive example</h4>
-          <!-- <h4 v-bind="modalShow">{{modalShow}}</h4> -->
           <p class="text-muted font-14 mb-3">
             <a
               href="#users"
@@ -72,7 +71,7 @@
                 id="name"
                 aria-describedby="namalengkap"
                 placeholder="Masukkan Nama Lengkap"
-                autofocus
+                autofocus required
               />
             </div>
             <div class="form-group">
@@ -83,6 +82,7 @@
                 class="form-control"
                 id="email"
                 placeholder="Masukkan Email"
+                required
               />
             </div>
             <div class="form-group">
@@ -123,6 +123,7 @@ export default {
   mounted() {
     console.log("Berhasil tampil");
     this.created();
+    console.log(token);
   },
   methods: {
     created() {
@@ -132,6 +133,7 @@ export default {
         })
         .then(response => {
           this.users = response.data.results;
+          console.log(users);
         })
         .catch(e => {
           console.error(e);

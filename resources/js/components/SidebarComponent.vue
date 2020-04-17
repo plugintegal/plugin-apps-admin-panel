@@ -87,7 +87,7 @@
                             <span class="menu-arrow"></span>
                         </a>
                         <ul class="nav-second-level" aria-expanded="false">
-                            <li><router-link :to="'/event/cat'">Kategori Event</router-link></li>
+                            <li><router-link :to="'/event/category'">Kategori Event</router-link></li>
                             <li><router-link :to="'/event/add'">Tambah Event</router-link></li>
                             <li><router-link :to="'/events'">Daftar Event</router-link></li>
                         </ul>

@@ -4,6 +4,7 @@ import Home from "./pages/Home.vue";
 import Landing from "./pages/Landing.vue";
 import Members from "./pages/members/Member.vue";
 import Events from "./pages/event/Events.vue";
+import DetailEvent from './pages/event/DetailEvent'
 import Presences from "./pages/presences/Presence.vue";
 import DetailMember from "./pages/members/DetailMember.vue";
 import Login from "./pages/Login.vue";
@@ -65,7 +66,13 @@ const router = new Router({
             component: AddEvent
         },
         {
-            path: "/event/cat",
+            path: "/event/:id",
+            name: "detailEvent",
+            title: "Detail Event",
+            component: DetailEvent
+        },
+        {
+            path: "/event/category",
             name: "catEvent",
             title: "Kategori Event",
             component: CategoryEvent

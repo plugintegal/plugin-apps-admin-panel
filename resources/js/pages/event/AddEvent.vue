@@ -11,7 +11,7 @@
                   <div class="form-group row">
                     <label class="col-sm-2 col-form-label" for="simpleinput">Nama Acara</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" v-model="title" />
+                      <input type="text" class="form-control" v-model="title" autofocus required />
                     </div>
                   </div>
                   <div class="form-group row">
@@ -22,12 +22,8 @@
                           type="date"
                           class="form-control"
                           placeholder="dd/mm/yyyy"
-                          v-model="opened"
+                          v-model="opened" required
                         />
-                          <!-- <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="datepicker-autoclose" v-model="opened"> -->
-                          <input type="date" v-model="opened" class="form-control">
-
-                        <!-- <date-picker v-model="opened" lang="en" type="date" format="dd-MM-YYYY" class="form-control" aria-placeholder="dd-MM-YYY" ></date-picker> -->
                         <div class="input-group-append">
                           <span class="input-group-text">
                             <i class="fa fa-calendar"></i>
@@ -44,10 +40,8 @@
                           type="date"
                           class="form-control"
                           placeholder="dd/mm/yyyy"
-                          v-model="closed"
+                          v-model="closed" required
                         />
-                        <!-- <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="datepicker-autoclose1" v-model="closed"> -->
-                        <input type="date" v-model="closed" class="form-control">
                         <div class="input-group-append">
                           <span class="input-group-text">
                             <i class="fa fa-calendar"></i>
@@ -64,7 +58,7 @@
                         class="form-control"
                         id="example-fileinput"
                         accept="image/*"
-                        @change="onChange"
+                        @change="onChange" required
                       />
                     </div>
                   </div>
@@ -75,9 +69,9 @@
                         v-model="description"
                         id="textarea"
                         class="form-control"
-                        maxlength="225"
+                        maxlength="300"
                         rows="3"
-                        placeholder="Maksimal 255 Karakter ..."
+                        placeholder="Maksimal 300 Karakter ..."
                       ></textarea>
                     </div>
                   </div>
@@ -133,8 +127,7 @@
                   <h1 class="mt-0 mb-3 header-title">Sub Kategori</h1>
 
                   <div
-                    v-for="(sub,
-                                        aIndex) in cat.sub_category"
+                    v-for="(sub,aIndex) in cat.sub_category"
                     :key="sub.id"
                   >
                     <div class="input-group">
@@ -146,7 +139,7 @@
                       />
                       <input
                         v-model="sub.quota"
-                        type="text"
+                        type="number"
                         class="form-control"
                         placeholder="Quota"
                       />
@@ -154,20 +147,14 @@
                         <button
                           type="button"
                           class="btn btn-success"
-                          @click="
-                                                        addSubCategory(catIndex)
-                                                    "
-                        >
+                          @click="addSubCategory(catIndex)">
                           <i class="mdi mdi-plus"></i>
                         </button>
                         <button
                           v-show="aIndex !== 0"
                           type="button"
                           class="btn btn-danger"
-                          @click="
-                                                        delSubCategory(catIndex)
-                                                    "
-                        >
+                          @click="delSubCategory(catIndex)">
                           <i class="mdi mdi-minus"></i>
                         </button>
                       </div>
@@ -248,7 +235,7 @@ export default {
       this.image = e.target.files[0];
     },
 
-    postEvent() {
+    postEvent(e) {
       let event = new FormData();
       let categoriesData = JSON.stringify(this.category);
       event.append("title", this.title),
@@ -257,22 +244,11 @@ export default {
         event.append("image", this.image),
         event.append("description", this.description),
         event.append("category", categoriesData);
-      this.image = e.target.files[0]
-    },
-    postEvent() {
-      this.event = {
-        title: this.title,
-        opened: this.opened,
-        closed: this.closed,
-        image: this.image,
-        description: this.description,
-        category: this.category,
-      }
+
       axios
         .post("https://plugin-apps-server.herokuapp.com/api/event", event, {
           headers: { Authorization: `Bearer ${token}` }
         })
-        // .post("http://192.168.18.53:8000/api/event", event,{headers: { Authorization: `Bearer ${token}`}})
         .then(response => {
           console.log(response.data.results);
         })

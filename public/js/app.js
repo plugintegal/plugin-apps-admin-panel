@@ -2342,7 +2342,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-<<<<<<< HEAD
 //
 //
 //
@@ -2362,16 +2361,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-=======
->>>>>>> f6e064af4756a23e6d985c5c14aac594cd1526e5
 
 var token = localStorage.getItem("token");
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2422,8 +2411,7 @@ var token = localStorage.getItem("token");
     onChange: function onChange(e) {
       this.image = e.target.files[0];
     },
-    postEvent: function postEvent() {
-<<<<<<< HEAD
+    postEvent: function postEvent(e) {
       var event = new FormData();
       var categoriesData = JSON.stringify(this.category);
       event.append("title", this.title), event.append("opened", this.opened), event.append("closed", this.closed), event.append("image", this.image), event.append("description", this.description), event.append("category", categoriesData);
@@ -2431,23 +2419,11 @@ var token = localStorage.getItem("token");
         headers: {
           Authorization: "Bearer ".concat(token)
         }
-      }) // .post("http://192.168.18.53:8000/api/event", event,{headers: { Authorization: `Bearer ${token}`}})
-      .then(function (response) {
+      }).then(function (response) {
         console.log(response.data.results);
       })["catch"](function (e) {
         console.log(e);
       });
-=======
-      this.event = {
-        title: this.title,
-        opened: this.opened,
-        closed: this.closed,
-        image: this.image,
-        description: this.description,
-        category: this.category
-      };
-      console.log(this.event);
->>>>>>> f6e064af4756a23e6d985c5c14aac594cd1526e5
     },
     getCategory: function getCategory() {
       var _this = this;
@@ -2562,6 +2538,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var token = localStorage.getItem("token");
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2590,8 +2588,8 @@ var token = localStorage.getItem("token");
         console.log(e);
       });
     },
-    createCategory: function () {
-      var _createCategory = _asyncToGenerator(
+    createMyCategory: function () {
+      var _createMyCategory = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         var _this2 = this;
@@ -2601,7 +2599,6 @@ var token = localStorage.getItem("token");
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                //    console.log(token);
                 data = {
                   name: this.postName
                 };
@@ -2633,14 +2630,45 @@ var token = localStorage.getItem("token");
         }, _callee, this);
       }));
 
-      function createCategory() {
-        return _createCategory.apply(this, arguments);
+      function createMyCategory() {
+        return _createMyCategory.apply(this, arguments);
       }
 
-      return createCategory;
-    }()
+      return createMyCategory;
+    }(),
+    postCategory: function postCategory() {
+      var data = JSON.stringify({
+        name: this.postName
+      });
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("https://plugin-apps-server.herokuapp.com/api/category", data, {
+        headers: {
+          Authorization: "Bearer ".concat(token)
+        }
+      }).then(function (response) {
+        console.log(response.data.results);
+      })["catch"](function (e) {
+        console.log(e);
+      });
+    }
   }
 });
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/event/DetailEvent.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/event/DetailEvent.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
 
@@ -2653,6 +2681,8 @@ var token = localStorage.getItem("token");
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2700,87 +2730,151 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+var token = localStorage.getItem("token");
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Events",
   data: function data() {
     return {
-      event: [{
-        category_events: [{
-          sub_category_events: []
-        }]
-      }]
+      events: []
     };
   },
   mounted: function mounted() {
-    console.log(this.test());
+    this.getEvent();
   },
   methods: {
-    test: function test() {
-      hasil: this.event;
+    getEvent: function getEvent() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("https://plugin-apps-server.herokuapp.com/api/event", {
+        headers: {
+          Authorization: "Bearer ".concat(token)
+        }
+      }).then(function (response) {
+        _this.events = response.data.results;
+      })["catch"](function (e) {
+        console.log(e);
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/event/ParticipantEvent.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/event/ParticipantEvent.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var token = localStorage.getItem("token");
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "ParticipantEvent",
+  data: function data() {
+    return {
+      participants: [],
+      status: ""
+    };
+  },
+  mounted: function mounted() {
+    this.getPerticipant();
+  },
+  methods: {
+    getPerticipant: function getPerticipant() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("https://plugin-apps-server.herokuapp.com/api/participant", {
+        headers: {
+          Authorization: "Bearer ".concat(token)
+        }
+      }).then(function (response) {
+        _this.participants = response.data.results;
+      })["catch"](function (e) {
+        console.log(e);
+      });
     }
   }
 });
@@ -3033,6 +3127,7 @@ var token = localStorage.getItem("token");
   mounted: function mounted() {
     console.log("Berhasil tampil");
     this.created();
+    console.log(token);
   },
   methods: {
     created: function created() {
@@ -3044,6 +3139,7 @@ var token = localStorage.getItem("token");
         }
       }).then(function (response) {
         _this.users = response.data.results;
+        console.log(users);
       })["catch"](function (e) {
         console.error(e);
       });
@@ -7605,7 +7701,7 @@ var render = function() {
                 _c(
                   "li",
                   [
-                    _c("router-link", { attrs: { to: "/event/cat" } }, [
+                    _c("router-link", { attrs: { to: "/event/category" } }, [
                       _vm._v("Kategori Event")
                     ])
                   ],
@@ -8304,7 +8400,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { type: "text" },
+                          attrs: { type: "text", autofocus: "", required: "" },
                           domProps: { value: _vm.title },
                           on: {
                             input: function($event) {
@@ -8335,11 +8431,11 @@ var render = function() {
                               }
                             ],
                             staticClass: "form-control",
-<<<<<<< HEAD
-                            attrs: { type: "date", placeholder: "dd/mm/yyyy" },
-=======
-                            attrs: { type: "date" },
->>>>>>> f6e064af4756a23e6d985c5c14aac594cd1526e5
+                            attrs: {
+                              type: "date",
+                              placeholder: "dd/mm/yyyy",
+                              required: ""
+                            },
                             domProps: { value: _vm.opened },
                             on: {
                               input: function($event) {
@@ -8373,11 +8469,11 @@ var render = function() {
                               }
                             ],
                             staticClass: "form-control",
-<<<<<<< HEAD
-                            attrs: { type: "date", placeholder: "dd/mm/yyyy" },
-=======
-                            attrs: { type: "date" },
->>>>>>> f6e064af4756a23e6d985c5c14aac594cd1526e5
+                            attrs: {
+                              type: "date",
+                              placeholder: "dd/mm/yyyy",
+                              required: ""
+                            },
                             domProps: { value: _vm.closed },
                             on: {
                               input: function($event) {
@@ -8410,7 +8506,8 @@ var render = function() {
                           attrs: {
                             type: "file",
                             id: "example-fileinput",
-                            accept: "image/*"
+                            accept: "image/*",
+                            required: ""
                           },
                           on: { change: _vm.onChange }
                         })
@@ -8435,9 +8532,9 @@ var render = function() {
                           staticClass: "form-control",
                           attrs: {
                             id: "textarea",
-                            maxlength: "225",
+                            maxlength: "300",
                             rows: "3",
-                            placeholder: "Maksimal 255 Karakter ..."
+                            placeholder: "Maksimal 300 Karakter ..."
                           },
                           domProps: { value: _vm.description },
                           on: {
@@ -8654,7 +8751,7 @@ var render = function() {
                                 }
                               ],
                               staticClass: "form-control",
-                              attrs: { type: "text", placeholder: "Quota" },
+                              attrs: { type: "number", placeholder: "Quota" },
                               domProps: { value: sub.quota },
                               on: {
                                 input: function($event) {
@@ -8832,7 +8929,8 @@ var render = function() {
                             type: "text",
                             id: "name",
                             placeholder: "Masukkan Kategori",
-                            autofocus: ""
+                            autofocus: "",
+                            required: ""
                           },
                           domProps: { value: _vm.postName },
                           on: {
@@ -8853,7 +8951,7 @@ var render = function() {
                       attrs: { type: "button", value: "Tambah Kategori" },
                       on: {
                         click: function($event) {
-                          return _vm.createCategory()
+                          return _vm.postCategory()
                         }
                       }
                     })
@@ -8880,9 +8978,9 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "tbody",
-                _vm._l(_vm.categories, function(category) {
+                _vm._l(_vm.categories, function(category, no) {
                   return _c("tr", { key: category.id }, [
-                    _c("td", [_vm._v(_vm._s(_vm.no++))]),
+                    _c("td", [_vm._v(_vm._s(no + 1))]),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(category.name))]),
                     _vm._v(" "),
@@ -8893,7 +8991,7 @@ var render = function() {
                           staticClass:
                             "btn btn-icon waves-effect waves-light btn-warning",
                           attrs: {
-                            href: "#cat",
+                            href: "#edit",
                             "data-animation": "fadein",
                             "data-plugin": "custommodal",
                             "data-overlay-color": "#36404a"
@@ -8958,7 +9056,7 @@ var staticRenderFns = [
       "div",
       {
         staticClass: "modal-demo",
-        attrs: { id: "cat", "data-animation": "fadein" }
+        attrs: { id: "edit", "data-animation": "fadein" }
       },
       [
         _c(
@@ -8975,33 +9073,32 @@ var staticRenderFns = [
         ),
         _vm._v(" "),
         _c("h4", { staticClass: "custom-modal-title" }, [
-          _vm._v("Edit Kategori")
+          _vm._v("Edit Status")
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-13" }, [
           _c("div", { staticClass: "card-box" }, [
             _c("form", { attrs: { role: "form" } }, [
               _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "name" } }, [_vm._v("Kategori")]),
+                _c("label", { attrs: { for: "role" } }, [
+                  _vm._v("Pilih Status Pembayaran")
+                ]),
                 _vm._v(" "),
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    id: "name",
-                    "aria-describedby": "kategori",
-                    placeholder: "Masukkan Kategori",
-                    autofocus: ""
-                  }
-                })
+                _c("select", { staticClass: "form-control" }, [
+                  _c("option", [_vm._v("--- Pilih Status")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "1" } }, [_vm._v("Lunas")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "0" } }, [
+                    _vm._v("Belum Lunas")
+                  ])
+                ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "form-group justify-content-center" }, [
-                _c("input", {
-                  staticClass: "btn btn-primary",
-                  attrs: { type: "button", value: "Simpan Perubahan" }
-                })
-              ])
+              _c("input", {
+                staticClass: "btn btn-primary",
+                attrs: { type: "button", value: "Perbaharui Status" }
+              })
             ])
           ])
         ])
@@ -9009,6 +9106,30 @@ var staticRenderFns = [
     )
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/event/DetailEvent.vue?vue&type=template&id=bf6d76ca&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/event/DetailEvent.vue?vue&type=template&id=bf6d76ca& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div")
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -9030,257 +9151,125 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container-fluid" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c("div", { staticClass: "card-box" }, [
+          _c("h3", [_vm._v("Daftar Event")]),
+          _vm._v(" "),
+          _c(
+            "table",
+            {
+              staticClass: "table table-bordered dt-responsive nowrap",
+              attrs: { id: "datatable" }
+            },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.events, function(event, no) {
+                  return _c("tr", { key: event.id }, [
+                    _c("td", [_vm._v(_vm._s(no + 1))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(event.title))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(event.opened))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(event.closed))]),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            attrs: {
+                              to: {
+                                name: "detailEvent",
+                                params: { id: event.id }
+                              }
+                            }
+                          },
+                          [_vm._v("Detail")]
+                        ),
+                        _vm._v(" "),
+                        _vm._m(1, true),
+                        _vm._v(" "),
+                        _vm._m(2, true),
+                        _vm._v(" "),
+                        _vm._m(3, true)
+                      ],
+                      1
+                    )
+                  ])
+                }),
+                0
+              )
+            ]
+          )
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container-fluid" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-12" }, [
-          _c("div", { staticClass: "card-box" }, [
-            _c("h3", [_vm._v("Daftar Event")]),
-            _vm._v(" "),
-            _c(
-              "table",
-              {
-                staticClass: "table table-bordered dt-responsive nowrap",
-                attrs: { id: "datatable" }
-              },
-              [
-                _c("thead", [
-                  _c("tr", [
-                    _c("th", [_vm._v("Nama Event")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Awal Pendaftaran")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Akhir Pendaftaran")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Deskripsi")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Aksi")])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("tbody", [
-                  _c("tr", [
-                    _c("td", [_vm._v("System Architect")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Edinburgh")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("61")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("2011/04/25")]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "a",
-                        {
-                          staticClass:
-                            "btn btn-icon waves-effect waves-light btn-success",
-                          attrs: { href: "#" }
-                        },
-                        [_c("i", { staticClass: "fas fa-eye" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          staticClass:
-                            "btn btn-icon waves-effect waves-light btn-warning",
-                          attrs: { href: "#" }
-                        },
-                        [_c("i", { staticClass: "fas fa-edit" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          staticClass:
-                            "btn btn-icon waves-effect waves-light btn-danger",
-                          attrs: { href: "#" }
-                        },
-                        [_c("i", { staticClass: "fas fa-trash-alt" })]
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("Accountant")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Tokyo")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("63")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("2011/07/25")]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "a",
-                        {
-                          staticClass:
-                            "btn btn-icon waves-effect waves-light btn-success",
-                          attrs: { href: "#" }
-                        },
-                        [_c("i", { staticClass: "fas fa-eye" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          staticClass:
-                            "btn btn-icon waves-effect waves-light btn-warning",
-                          attrs: { href: "#" }
-                        },
-                        [_c("i", { staticClass: "fas fa-edit" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          staticClass:
-                            "btn btn-icon waves-effect waves-light btn-danger",
-                          attrs: { href: "#" }
-                        },
-                        [_c("i", { staticClass: "fas fa-trash-alt" })]
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("Junior Technical Author")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("San Francisco")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("66")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("2009/01/12")]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "a",
-                        {
-                          staticClass:
-                            "btn btn-icon waves-effect waves-light btn-success",
-                          attrs: { href: "#" }
-                        },
-                        [_c("i", { staticClass: "fas fa-eye" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          staticClass:
-                            "btn btn-icon waves-effect waves-light btn-warning",
-                          attrs: { href: "#" }
-                        },
-                        [_c("i", { staticClass: "fas fa-edit" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          staticClass:
-                            "btn btn-icon waves-effect waves-light btn-danger",
-                          attrs: { href: "#" }
-                        },
-                        [_c("i", { staticClass: "fas fa-trash-alt" })]
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("Senior Javascript Developer")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Edinburgh")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("22")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("2012/03/29")]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "a",
-                        {
-                          staticClass:
-                            "btn btn-icon waves-effect waves-light btn-success",
-                          attrs: { href: "#" }
-                        },
-                        [_c("i", { staticClass: "fas fa-eye" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          staticClass:
-                            "btn btn-icon waves-effect waves-light btn-warning",
-                          attrs: { href: "#" }
-                        },
-                        [_c("i", { staticClass: "fas fa-edit" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          staticClass:
-                            "btn btn-icon waves-effect waves-light btn-danger",
-                          attrs: { href: "#" }
-                        },
-                        [_c("i", { staticClass: "fas fa-trash-alt" })]
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("Accountant")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Tokyo")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("33")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("2008/11/28")]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "a",
-                        {
-                          staticClass:
-                            "btn btn-icon waves-effect waves-light btn-success",
-                          attrs: { href: "#" }
-                        },
-                        [_c("i", { staticClass: "fas fa-eye" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          staticClass:
-                            "btn btn-icon waves-effect waves-light btn-warning",
-                          attrs: { href: "#" }
-                        },
-                        [_c("i", { staticClass: "fas fa-edit" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          staticClass:
-                            "btn btn-icon waves-effect waves-light btn-danger",
-                          attrs: { href: "#" }
-                        },
-                        [_c("i", { staticClass: "fas fa-trash-alt" })]
-                      )
-                    ])
-                  ])
-                ])
-              ]
-            )
-          ])
-        ])
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("No")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Nama Event")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Awal Pendaftaran")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Akhir Pendaftaran")]),
+        _vm._v(" "),
+        _c("th", { attrs: { align: "center" } }, [_vm._v("Aksi")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "btn btn-icon waves-effect waves-light btn-warning",
+        attrs: { href: "#" }
+      },
+      [_c("i", { staticClass: "fas fa-edit" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "btn btn-icon waves-effect waves-light btn-danger",
+        attrs: { href: "#" }
+      },
+      [_c("i", { staticClass: "fas fa-trash-alt" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "btn btn-icon waves-effect waves-light btn-primary",
+        attrs: { href: "/event/participant" }
+      },
+      [_c("i", { staticClass: "fas fa-users" })]
+    )
   }
 ]
 render._withStripped = true
@@ -9307,25 +9296,64 @@ var render = function() {
   return _c("div", { staticClass: "container-fluid" }, [
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-12" }, [
-        _c(
-          "div",
-          { staticClass: "card-box" },
-          [
-            _c(
-              "router-link",
-              {
-                staticClass: "btn btn-info header-title",
-                attrs: { to: "/event/add" }
-              },
-              [_vm._v("Create New Post")]
-            ),
-            _vm._v(" "),
-            _vm._m(0)
-          ],
-          1
-        )
+        _c("div", { staticClass: "card-box" }, [
+          _c(
+            "table",
+            {
+              staticClass: "table table-bordered dt-responsive nowrap",
+              attrs: { id: "datatable" }
+            },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.participants, function(participant, no) {
+                  return _c("tr", { key: participant.id }, [
+                    _c("td", [_vm._v(_vm._s(no + 1))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(participant.full_name))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(participant.email))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(participant.phone))]),
+                    _vm._v(" "),
+                    _vm._m(1, true),
+                    _vm._v(" "),
+                    _vm._m(2, true),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "a",
+                        {
+                          staticClass:
+                            "btn btn-icon waves-effect waves-light btn-warning",
+                          attrs: {
+                            href: "#edit",
+                            "data-animation": "fadein",
+                            "data-plugin": "custommodal",
+                            "data-overlay-color": "#36404a"
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.showModal = true
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fas fa-edit" })]
+                      )
+                    ])
+                  ])
+                }),
+                0
+              )
+            ]
+          )
+        ])
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _vm._m(3)
   ])
 }
 var staticRenderFns = [
@@ -9333,247 +9361,93 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("No.")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Nama Peserta")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Email")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("No. Hp")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Kehadiran")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Status Pembayaran")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Aksi")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("span", { staticClass: "badge badge-warning" }, [
+        _vm._v("Belum Hadir")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("span", { staticClass: "badge badge-danger" }, [_vm._v("Belum Lunas")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c(
-      "table",
+      "div",
       {
-        staticClass: "table table-bordered dt-responsive nowrap",
-        attrs: { id: "datatable" }
+        staticClass: "modal-demo",
+        attrs: { id: "edit", "data-animation": "fadein" }
       },
       [
-        _c("thead", [
-          _c("tr", [
-            _c("th", [_vm._v("Sub Event")]),
+        _c(
+          "button",
+          {
+            staticClass: "close",
+            attrs: { type: "button", onclick: "Custombox.modal.close();" }
+          },
+          [
+            _c("span", [_vm._v("×")]),
             _vm._v(" "),
-            _c("th", [_vm._v("Nama Event")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Awal Pendaftaran")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Akhir Pendaftaran")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Deskripsi")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Aksi")])
-          ])
+            _c("span", { staticClass: "sr-only" }, [_vm._v("Close")])
+          ]
+        ),
+        _vm._v(" "),
+        _c("h4", { staticClass: "custom-modal-title" }, [
+          _vm._v("Edit Status")
         ]),
         _vm._v(" "),
-        _c("tbody", [
-          _c("tr", [
-            _c("td", [_vm._v("Tiger Nixon")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("System Architect")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Edinburgh")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("61")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("2011/04/25")]),
-            _vm._v(" "),
-            _c("td", [
-              _c(
-                "a",
-                {
-                  staticClass:
-                    "btn btn-icon waves-effect waves-light btn-success",
-                  attrs: { href: "#" }
-                },
-                [_c("i", { staticClass: "fas fa-eye" })]
-              ),
+        _c("div", { staticClass: "col-md-13" }, [
+          _c("div", { staticClass: "card-box" }, [
+            _c("form", { attrs: { role: "form" } }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "role" } }, [
+                  _vm._v("Pilih Status Pembayaran")
+                ]),
+                _vm._v(" "),
+                _c("select", { staticClass: "form-control" }, [
+                  _c("option", [_vm._v("--- Pilih Status")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "1" } }, [_vm._v("Lunas")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "0" } }, [
+                    _vm._v("Belum Lunas")
+                  ])
+                ])
+              ]),
               _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass:
-                    "btn btn-icon waves-effect waves-light btn-warning",
-                  attrs: { href: "#" }
-                },
-                [_c("i", { staticClass: "fas fa-edit" })]
-              ),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass:
-                    "btn btn-icon waves-effect waves-light btn-danger",
-                  attrs: { href: "#" }
-                },
-                [_c("i", { staticClass: "fas fa-trash-alt" })]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tr", [
-            _c("td", [_vm._v("Garrett Winters")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Accountant")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Tokyo")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("63")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("2011/07/25")]),
-            _vm._v(" "),
-            _c("td", [
-              _c(
-                "a",
-                {
-                  staticClass:
-                    "btn btn-icon waves-effect waves-light btn-success",
-                  attrs: { href: "#" }
-                },
-                [_c("i", { staticClass: "fas fa-eye" })]
-              ),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass:
-                    "btn btn-icon waves-effect waves-light btn-warning",
-                  attrs: { href: "#" }
-                },
-                [_c("i", { staticClass: "fas fa-edit" })]
-              ),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass:
-                    "btn btn-icon waves-effect waves-light btn-danger",
-                  attrs: { href: "#" }
-                },
-                [_c("i", { staticClass: "fas fa-trash-alt" })]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tr", [
-            _c("td", [_vm._v("Ashton Cox")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Junior Technical Author")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("San Francisco")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("66")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("2009/01/12")]),
-            _vm._v(" "),
-            _c("td", [
-              _c(
-                "a",
-                {
-                  staticClass:
-                    "btn btn-icon waves-effect waves-light btn-success",
-                  attrs: { href: "#" }
-                },
-                [_c("i", { staticClass: "fas fa-eye" })]
-              ),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass:
-                    "btn btn-icon waves-effect waves-light btn-warning",
-                  attrs: { href: "#" }
-                },
-                [_c("i", { staticClass: "fas fa-edit" })]
-              ),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass:
-                    "btn btn-icon waves-effect waves-light btn-danger",
-                  attrs: { href: "#" }
-                },
-                [_c("i", { staticClass: "fas fa-trash-alt" })]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tr", [
-            _c("td", [_vm._v("Cedric Kelly")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Senior Javascript Developer")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Edinburgh")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("22")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("2012/03/29")]),
-            _vm._v(" "),
-            _c("td", [
-              _c(
-                "a",
-                {
-                  staticClass:
-                    "btn btn-icon waves-effect waves-light btn-success",
-                  attrs: { href: "#" }
-                },
-                [_c("i", { staticClass: "fas fa-eye" })]
-              ),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass:
-                    "btn btn-icon waves-effect waves-light btn-warning",
-                  attrs: { href: "#" }
-                },
-                [_c("i", { staticClass: "fas fa-edit" })]
-              ),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass:
-                    "btn btn-icon waves-effect waves-light btn-danger",
-                  attrs: { href: "#" }
-                },
-                [_c("i", { staticClass: "fas fa-trash-alt" })]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tr", [
-            _c("td", [_vm._v("Airi Satou")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Accountant")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Tokyo")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("33")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("2008/11/28")]),
-            _vm._v(" "),
-            _c("td", [
-              _c(
-                "a",
-                {
-                  staticClass:
-                    "btn btn-icon waves-effect waves-light btn-success",
-                  attrs: { href: "#" }
-                },
-                [_c("i", { staticClass: "fas fa-eye" })]
-              ),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass:
-                    "btn btn-icon waves-effect waves-light btn-warning",
-                  attrs: { href: "#" }
-                },
-                [_c("i", { staticClass: "fas fa-edit" })]
-              ),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass:
-                    "btn btn-icon waves-effect waves-light btn-danger",
-                  attrs: { href: "#" }
-                },
-                [_c("i", { staticClass: "fas fa-trash-alt" })]
-              )
+              _c("input", {
+                staticClass: "btn btn-primary",
+                attrs: { type: "button", value: "Perbaharui Status" }
+              })
             ])
           ])
         ])
@@ -9861,7 +9735,8 @@ var render = function() {
                     id: "name",
                     "aria-describedby": "namalengkap",
                     placeholder: "Masukkan Nama Lengkap",
-                    autofocus: ""
+                    autofocus: "",
+                    required: ""
                   },
                   domProps: { value: _vm.postName },
                   on: {
@@ -9891,7 +9766,8 @@ var render = function() {
                   attrs: {
                     type: "email",
                     id: "email",
-                    placeholder: "Masukkan Email"
+                    placeholder: "Masukkan Email",
+                    required: ""
                   },
                   domProps: { value: _vm.postEmail },
                   on: {
@@ -26887,6 +26763,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/pages/event/DetailEvent.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/pages/event/DetailEvent.vue ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _DetailEvent_vue_vue_type_template_id_bf6d76ca___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DetailEvent.vue?vue&type=template&id=bf6d76ca& */ "./resources/js/pages/event/DetailEvent.vue?vue&type=template&id=bf6d76ca&");
+/* harmony import */ var _DetailEvent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DetailEvent.vue?vue&type=script&lang=js& */ "./resources/js/pages/event/DetailEvent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _DetailEvent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _DetailEvent_vue_vue_type_template_id_bf6d76ca___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _DetailEvent_vue_vue_type_template_id_bf6d76ca___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/pages/event/DetailEvent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/pages/event/DetailEvent.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/pages/event/DetailEvent.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DetailEvent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./DetailEvent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/event/DetailEvent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DetailEvent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/pages/event/DetailEvent.vue?vue&type=template&id=bf6d76ca&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/pages/event/DetailEvent.vue?vue&type=template&id=bf6d76ca& ***!
+  \*********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DetailEvent_vue_vue_type_template_id_bf6d76ca___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./DetailEvent.vue?vue&type=template&id=bf6d76ca& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/event/DetailEvent.vue?vue&type=template&id=bf6d76ca&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DetailEvent_vue_vue_type_template_id_bf6d76ca___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DetailEvent_vue_vue_type_template_id_bf6d76ca___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/pages/event/Events.vue":
 /*!*********************************************!*\
   !*** ./resources/js/pages/event/Events.vue ***!
@@ -26966,15 +26911,17 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ParticipantEvent_vue_vue_type_template_id_4dfcbcc5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ParticipantEvent.vue?vue&type=template&id=4dfcbcc5& */ "./resources/js/pages/event/ParticipantEvent.vue?vue&type=template&id=4dfcbcc5&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _ParticipantEvent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ParticipantEvent.vue?vue&type=script&lang=js& */ "./resources/js/pages/event/ParticipantEvent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-var script = {}
+
+
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  script,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ParticipantEvent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _ParticipantEvent_vue_vue_type_template_id_4dfcbcc5___WEBPACK_IMPORTED_MODULE_0__["render"],
   _ParticipantEvent_vue_vue_type_template_id_4dfcbcc5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -26988,6 +26935,20 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 if (false) { var api; }
 component.options.__file = "resources/js/pages/event/ParticipantEvent.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/pages/event/ParticipantEvent.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/pages/event/ParticipantEvent.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ParticipantEvent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ParticipantEvent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/event/ParticipantEvent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ParticipantEvent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -27216,13 +27177,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_Landing_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/Landing.vue */ "./resources/js/pages/Landing.vue");
 /* harmony import */ var _pages_members_Member_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/members/Member.vue */ "./resources/js/pages/members/Member.vue");
 /* harmony import */ var _pages_event_Events_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/event/Events.vue */ "./resources/js/pages/event/Events.vue");
-/* harmony import */ var _pages_presences_Presence_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/presences/Presence.vue */ "./resources/js/pages/presences/Presence.vue");
-/* harmony import */ var _pages_members_DetailMember_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/members/DetailMember.vue */ "./resources/js/pages/members/DetailMember.vue");
-/* harmony import */ var _pages_Login_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pages/Login.vue */ "./resources/js/pages/Login.vue");
-/* harmony import */ var _store_store_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./store/store.js */ "./resources/js/store/store.js");
-/* harmony import */ var _pages_event_AddEvent_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pages/event/AddEvent.vue */ "./resources/js/pages/event/AddEvent.vue");
-/* harmony import */ var _pages_event_ParticipantEvent_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./pages/event/ParticipantEvent.vue */ "./resources/js/pages/event/ParticipantEvent.vue");
-/* harmony import */ var _pages_event_CategoryEvent__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./pages/event/CategoryEvent */ "./resources/js/pages/event/CategoryEvent.vue");
+/* harmony import */ var _pages_event_DetailEvent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/event/DetailEvent */ "./resources/js/pages/event/DetailEvent.vue");
+/* harmony import */ var _pages_presences_Presence_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/presences/Presence.vue */ "./resources/js/pages/presences/Presence.vue");
+/* harmony import */ var _pages_members_DetailMember_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pages/members/DetailMember.vue */ "./resources/js/pages/members/DetailMember.vue");
+/* harmony import */ var _pages_Login_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pages/Login.vue */ "./resources/js/pages/Login.vue");
+/* harmony import */ var _store_store_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./store/store.js */ "./resources/js/store/store.js");
+/* harmony import */ var _pages_event_AddEvent_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./pages/event/AddEvent.vue */ "./resources/js/pages/event/AddEvent.vue");
+/* harmony import */ var _pages_event_ParticipantEvent_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./pages/event/ParticipantEvent.vue */ "./resources/js/pages/event/ParticipantEvent.vue");
+/* harmony import */ var _pages_event_CategoryEvent__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./pages/event/CategoryEvent */ "./resources/js/pages/event/CategoryEvent.vue");
+
 
 
 
@@ -27248,7 +27211,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: "/login",
     name: "login",
     title: "Login",
-    component: _pages_Login_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
+    component: _pages_Login_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
   }, {
     path: "/home",
     name: "home",
@@ -27267,34 +27230,39 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: "/presence",
     name: "presence",
     title: "Absensi",
-    component: _pages_presences_Presence_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+    component: _pages_presences_Presence_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
   }, {
     path: "/members/:member_id",
     name: "detailMember",
     title: "Detail Member",
-    component: _pages_members_DetailMember_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
+    component: _pages_members_DetailMember_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
   }, {
     path: "/event/add",
     name: "addevent",
     title: "Tambah Event",
-    component: _pages_event_AddEvent_vue__WEBPACK_IMPORTED_MODULE_10__["default"]
+    component: _pages_event_AddEvent_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
   }, {
-    path: "/event/cat",
+    path: "/event/:id",
+    name: "detailEvent",
+    title: "Detail Event",
+    component: _pages_event_DetailEvent__WEBPACK_IMPORTED_MODULE_6__["default"]
+  }, {
+    path: "/event/category",
     name: "catEvent",
     title: "Kategori Event",
-    component: _pages_event_CategoryEvent__WEBPACK_IMPORTED_MODULE_12__["default"]
+    component: _pages_event_CategoryEvent__WEBPACK_IMPORTED_MODULE_13__["default"]
   }, {
     path: "/event/participant",
     name: "participant",
     title: "Peserta Event",
-    component: _pages_event_ParticipantEvent_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
+    component: _pages_event_ParticipantEvent_vue__WEBPACK_IMPORTED_MODULE_12__["default"]
   }]
 });
 router.beforeEach(function (to, from, next) {
   if (to.matched.some(function (record) {
     return record.meta.requiresAuth;
   })) {
-    if (_store_store_js__WEBPACK_IMPORTED_MODULE_9__["default"].getters.isLoggedIn) {
+    if (_store_store_js__WEBPACK_IMPORTED_MODULE_10__["default"].getters.isLoggedIn) {
       next();
       return;
     }
@@ -27413,8 +27381,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/felix/Documents/PLUGIN/plugin-apps-admin-panel/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/felix/Documents/PLUGIN/plugin-apps-admin-panel/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/hisyam/Music/plugin-apps-admin-panel/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/hisyam/Music/plugin-apps-admin-panel/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
